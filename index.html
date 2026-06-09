@@ -1,1852 +1,1310 @@
 <!DOCTYPE html>
 <html lang="nl">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
-<title>🇯🇵 Japan Trip 2026</title>
-<link href="https://fonts.googleapis.com/css2?family=Shippori+Mincho:wght@400;700;800&family=Outfit:wght@300;400;500;600&display=swap" rel="stylesheet">
-<style>
-:root {
-  --bg: #0f0c0a;
-  --surface: #1a1512;
-  --surface2: #231e19;
-  --surface3: #2d2620;
-  --border: rgba(255,255,255,0.07);
-  --gold: #d4a843;
-  --gold-dim: rgba(212,168,67,0.15);
-  --red: #c0392b;
-  --red-dim: rgba(192,57,43,0.15);
-  --sage: #6b9e72;
-  --sage-dim: rgba(107,158,114,0.15);
-  --blue: #4a7fa5;
-  --blue-dim: rgba(74,127,165,0.15);
-  --purple: #8b6bb1;
-  --purple-dim: rgba(139,107,177,0.15);
-  --text: #f0e8dc;
-  --text-dim: rgba(240,232,220,0.5);
-  --text-muted: rgba(240,232,220,0.3);
-  --radius: 14px;
-  --radius-sm: 8px;
-}
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0" />
+  <title>🏝️ Madeira 2026</title>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Outfit:wght@300;400;500;600&display=swap" rel="stylesheet" />
+  <style>
+    /* ── tokens ──────────────────────────────────────────── */
+    :root {
+      --bg:           #09090d;
+      --surface:      #0f1117;
+      --surface-alt:  #141924;
+      --ember:        #c87845;
+      --ember-dim:    rgba(200,120,69,.12);
+      --atlantic:     #4a9fc4;
+      --atlantic-dim: rgba(74,159,196,.12);
+      --text:         #e0d8d0;
+      --muted:        #7a7068;
+      --border:       #1e2330;
+      --font-d: 'Playfair Display', Georgia, serif;
+      --font-b: 'Outfit', system-ui, sans-serif;
+    }
 
-* { margin: 0; padding: 0; box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+    /* ── reset ───────────────────────────────────────────── */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: var(--font-b);
+      font-size: 15px;
+      line-height: 1.65;
+      -webkit-font-smoothing: antialiased;
+    }
 
-html { scroll-behavior: smooth; }
+    /* ── hero ────────────────────────────────────────────── */
+    .hero {
+      position: relative;
+      overflow: hidden;
+      padding: 60px 24px 52px;
+      text-align: center;
+      background: linear-gradient(180deg, #0e0d18 0%, var(--bg) 100%);
+      border-bottom: 1px solid var(--border);
+    }
+    .hero-watermark {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%) rotate(-90deg);
+      font-family: var(--font-d);
+      font-size: clamp(80px, 22vw, 200px);
+      font-weight: 700;
+      letter-spacing: 0.18em;
+      color: rgba(255,255,255,0.025);
+      white-space: nowrap;
+      pointer-events: none;
+      user-select: none;
+    }
+    .hero-eyebrow {
+      font-family: var(--font-b);
+      font-size: 11px;
+      font-weight: 500;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-bottom: 18px;
+      position: relative;
+    }
+    .hero-title {
+      font-family: var(--font-d);
+      font-size: clamp(48px, 11vw, 88px);
+      font-weight: 700;
+      line-height: 1;
+      color: var(--text);
+      margin-bottom: 14px;
+      position: relative;
+    }
+    .hero-title .accent {
+      color: var(--ember);
+      font-style: italic;
+    }
+    .hero-subtitle {
+      font-family: var(--font-b);
+      font-size: 14px;
+      color: var(--muted);
+      letter-spacing: 0.08em;
+      margin-bottom: 44px;
+      position: relative;
+    }
+    .hero-stats {
+      display: flex;
+      justify-content: center;
+      gap: 36px;
+      flex-wrap: wrap;
+      margin-bottom: 44px;
+      position: relative;
+    }
+    .stat { text-align: center; }
+    .stat-num {
+      font-family: var(--font-d);
+      font-size: 38px;
+      font-weight: 700;
+      color: var(--ember);
+      line-height: 1;
+      display: block;
+    }
+    .stat-label {
+      font-size: 11px;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--muted);
+      display: block;
+      margin-top: 5px;
+    }
 
-body {
-  background: var(--bg);
-  color: var(--text);
-  font-family: 'Outfit', sans-serif;
-  font-weight: 300;
-  min-height: 100vh;
-  overscroll-behavior: none;
-}
+    /* ── overview grid ───────────────────────────────────── */
+    .overview-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 10px;
+      max-width: 820px;
+      margin: 0 auto;
+      position: relative;
+    }
+    .overview-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 14px 16px;
+      text-align: left;
+    }
+    .overview-card-label {
+      font-size: 10px;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-bottom: 5px;
+    }
+    .overview-card-value {
+      font-size: 13.5px;
+      color: var(--text);
+      font-weight: 500;
+    }
+    .overview-card-sub {
+      font-size: 12px;
+      color: var(--muted);
+      margin-top: 2px;
+    }
 
-/* ── HERO ── */
-.hero {
-  position: relative;
-  padding: 48px 20px 32px;
-  text-align: center;
-  overflow: hidden;
-  background: linear-gradient(180deg, #1a0f08 0%, var(--bg) 100%);
-}
-.hero-kanji {
-  position: absolute;
-  font-family: 'Shippori Mincho', serif;
-  font-size: clamp(120px, 40vw, 220px);
-  font-weight: 800;
-  color: rgba(212,168,67,0.05);
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  pointer-events: none;
-  white-space: nowrap;
-  letter-spacing: -10px;
-}
-.hero-tag {
-  display: inline-block;
-  font-size: 10px;
-  letter-spacing: 3px;
-  text-transform: uppercase;
-  color: var(--gold);
-  border: 1px solid rgba(212,168,67,0.3);
-  padding: 4px 12px;
-  border-radius: 20px;
-  margin-bottom: 14px;
-}
-.hero h1 {
-  font-family: 'Shippori Mincho', serif;
-  font-size: clamp(32px, 9vw, 58px);
-  font-weight: 800;
-  letter-spacing: -1px;
-  line-height: 1.1;
-  margin-bottom: 8px;
-}
-.hero h1 span { color: var(--gold); }
-.hero-sub { font-size: 13px; color: var(--text-dim); margin-bottom: 24px; }
+    /* ── nav ─────────────────────────────────────────────── */
+    .nav-wrap {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background: rgba(9,9,13,0.93);
+      backdrop-filter: blur(14px);
+      -webkit-backdrop-filter: blur(14px);
+      border-bottom: 1px solid var(--border);
+    }
+    .nav {
+      display: flex;
+      overflow-x: auto;
+      scrollbar-width: none;
+      -webkit-overflow-scrolling: touch;
+      max-width: 920px;
+      margin: 0 auto;
+      padding: 0 8px;
+    }
+    .nav::-webkit-scrollbar { display: none; }
+    .nav-tab {
+      flex-shrink: 0;
+      padding: 14px 22px;
+      font-family: var(--font-b);
+      font-size: 13px;
+      font-weight: 500;
+      letter-spacing: 0.04em;
+      color: var(--muted);
+      cursor: pointer;
+      border: none;
+      border-bottom: 2px solid transparent;
+      background: none;
+      transition: color .2s, border-color .2s;
+      user-select: none;
+      white-space: nowrap;
+    }
+    .nav-tab:hover { color: var(--text); }
+    .nav-tab.active { color: var(--ember); border-bottom-color: var(--ember); }
 
-.hero-stats {
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  gap: 8px;
-  max-width: 480px;
-  margin: 0 auto;
-}
-.hero-stat {
-  background: var(--surface);
-  border: 1px solid var(--border);
-  border-radius: var(--radius-sm);
-  padding: 10px 6px;
-  text-align: center;
-}
-.hero-stat-val {
-  font-family: 'Shippori Mincho', serif;
-  font-size: 20px;
-  font-weight: 700;
-  color: var(--gold);
-  line-height: 1;
-}
-.hero-stat-lbl { font-size: 10px; color: var(--text-muted); margin-top: 3px; letter-spacing: 0.5px; }
+    /* ── content ─────────────────────────────────────────── */
+    .content {
+      max-width: 920px;
+      margin: 0 auto;
+      padding: 32px 20px 96px;
+    }
+    .tab-panel { display: none; }
+    .tab-panel.active { display: block; }
 
-/* ── NAV TABS ── */
-.nav-wrap {
-  position: sticky;
-  top: 0;
-  z-index: 100;
-  background: rgba(15,12,10,0.95);
-  backdrop-filter: blur(12px);
-  border-bottom: 1px solid var(--border);
-}
-.nav-tabs {
-  display: flex;
-  overflow-x: auto;
-  scrollbar-width: none;
-  padding: 0 4px;
-}
-.nav-tabs::-webkit-scrollbar { display: none; }
-.nav-tab {
-  flex-shrink: 0;
-  padding: 14px 16px;
-  background: none;
-  border: none;
-  color: var(--text-muted);
-  font-family: 'Outfit', sans-serif;
-  font-size: 12px;
-  font-weight: 500;
-  letter-spacing: 0.5px;
-  cursor: pointer;
-  border-bottom: 2px solid transparent;
-  transition: all 0.2s;
-  white-space: nowrap;
-  display: flex;
-  align-items: center;
-  gap: 6px;
-}
-.nav-tab.active { color: var(--gold); border-bottom-color: var(--gold); }
-.nav-tab:hover { color: var(--text); }
-.nav-tab .tab-emoji { font-size: 14px; }
+    /* ── section header ──────────────────────────────────── */
+    .section-header {
+      display: flex;
+      align-items: baseline;
+      gap: 12px;
+      margin-bottom: 22px;
+      padding-bottom: 14px;
+      border-bottom: 1px solid var(--border);
+    }
+    .section-title {
+      font-family: var(--font-d);
+      font-size: 30px;
+      font-weight: 700;
+      color: var(--text);
+    }
+    .section-sub { font-size: 13px; color: var(--muted); }
 
-/* ── PANELS ── */
-.panel { display: none; padding-bottom: 80px; }
-.panel.active { display: block; }
+    /* ── tips box ────────────────────────────────────────── */
+    .tips-box {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-left: 3px solid var(--ember);
+      border-radius: 8px;
+      padding: 18px 20px;
+      margin-bottom: 28px;
+    }
+    .tips-box-title {
+      font-size: 11px;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: var(--ember);
+      margin-bottom: 12px;
+      font-weight: 600;
+    }
+    .tips-box ul { list-style: none; display: flex; flex-direction: column; gap: 7px; }
+    .tips-box li {
+      font-size: 13.5px;
+      color: var(--text);
+      padding-left: 18px;
+      position: relative;
+      line-height: 1.55;
+    }
+    .tips-box li::before {
+      content: '▸';
+      position: absolute;
+      left: 0;
+      color: var(--ember);
+      font-size: 11px;
+      top: 3px;
+    }
 
-/* ── CITY HEADER ── */
-.city-banner {
-  position: relative;
-  padding: 28px 20px 20px;
-  overflow: hidden;
-}
-.city-banner::before {
-  content: '';
-  position: absolute;
-  inset: 0;
-  background: linear-gradient(135deg, var(--surface) 0%, transparent 60%);
-  pointer-events: none;
-}
-.city-banner-jp {
-  font-family: 'Shippori Mincho', serif;
-  font-size: clamp(60px, 22vw, 100px);
-  font-weight: 800;
-  color: rgba(255,255,255,0.03);
-  position: absolute;
-  right: -10px;
-  top: 50%;
-  transform: translateY(-50%);
-  pointer-events: none;
-  line-height: 1;
-}
-.city-banner-top { display: flex; align-items: center; gap: 10px; margin-bottom: 6px; }
-.city-banner-icon { font-size: 28px; }
-.city-banner h2 { font-family: 'Shippori Mincho', serif; font-size: 24px; font-weight: 700; }
-.city-banner-meta { font-size: 12px; color: var(--text-dim); }
-.city-banner-badge {
-  display: inline-block;
-  background: var(--gold-dim);
-  color: var(--gold);
-  font-size: 10px;
-  letter-spacing: 1.5px;
-  text-transform: uppercase;
-  padding: 3px 10px;
-  border-radius: 20px;
-  margin-top: 8px;
-  border: 1px solid rgba(212,168,67,0.2);
-}
+    /* ── day block ───────────────────────────────────────── */
+    .day-block {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      margin-bottom: 14px;
+      overflow: hidden;
+    }
+    .day-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 16px 20px;
+      cursor: pointer;
+      user-select: none;
+      transition: background .15s;
+    }
+    .day-header:hover { background: var(--surface-alt); }
+    .day-header-left { display: flex; align-items: center; gap: 16px; }
+    .day-num {
+      font-family: var(--font-d);
+      font-size: 26px;
+      font-weight: 700;
+      color: var(--ember);
+      line-height: 1;
+      min-width: 30px;
+    }
+    .day-title { font-size: 15px; font-weight: 600; color: var(--text); }
+    .day-date { font-size: 12px; color: var(--muted); margin-top: 1px; }
+    .day-toggle { font-size: 18px; color: var(--muted); transition: transform .25s; }
+    .day-block.open .day-toggle { transform: rotate(180deg); }
+    .day-body {
+      display: none;
+      padding: 0 20px 20px;
+      border-top: 1px solid var(--border);
+    }
+    .day-block.open .day-body { display: block; }
 
-/* ── TRAIN CARD ── */
-.train-card {
-  margin: 0 16px 16px;
-  background: var(--surface);
-  border: 1px solid var(--border);
-  border-left: 3px solid var(--red);
-  border-radius: var(--radius-sm);
-  padding: 12px 14px;
-}
-.train-row { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; font-size: 13px; line-height: 1.8; }
-.train-badge {
-  background: var(--red);
-  color: white;
-  font-size: 9px;
-  font-weight: 600;
-  letter-spacing: 1px;
-  text-transform: uppercase;
-  padding: 2px 7px;
-  border-radius: 4px;
-  flex-shrink: 0;
-}
-.train-time { color: var(--gold); font-weight: 500; }
-.train-arrow { color: var(--text-muted); }
+    /* ── item row ────────────────────────────────────────── */
+    .item-row {
+      display: flex;
+      gap: 16px;
+      padding: 14px 0;
+      border-bottom: 1px solid var(--border);
+    }
+    .item-row:last-child { border-bottom: none; }
+    .item-time {
+      flex-shrink: 0;
+      width: 52px;
+      font-size: 12px;
+      font-weight: 600;
+      color: var(--atlantic);
+      padding-top: 2px;
+      letter-spacing: 0.04em;
+    }
+    .item-title { font-size: 14.5px; font-weight: 600; color: var(--text); margin-bottom: 3px; }
+    .item-desc { font-size: 13px; color: var(--muted); line-height: 1.55; }
 
-/* ── TIPS BOX ── */
-.tips-box {
-  margin: 0 16px 16px;
-  background: var(--surface);
-  border: 1px solid rgba(212,168,67,0.2);
-  border-radius: var(--radius-sm);
-  padding: 12px 14px;
-}
-.tips-box-title {
-  font-size: 10px;
-  letter-spacing: 2px;
-  text-transform: uppercase;
-  color: var(--gold);
-  font-weight: 600;
-  margin-bottom: 8px;
-}
-.tips-box ul { padding-left: 14px; }
-.tips-box li { font-size: 12px; color: var(--text-dim); margin-bottom: 5px; line-height: 1.6; }
-.tips-box li strong { color: var(--text); font-weight: 500; }
+    /* ── tags ────────────────────────────────────────────── */
+    .tags { display: flex; flex-wrap: wrap; gap: 5px; margin-top: 7px; }
+    .tag { font-size: 11px; padding: 2px 9px; border-radius: 20px; letter-spacing: 0.04em; }
+    .tag-ember   { background: var(--ember-dim);   color: var(--ember); }
+    .tag-atlantic { background: var(--atlantic-dim); color: var(--atlantic); }
+    .tag-muted   { background: rgba(255,255,255,.06); color: var(--muted); }
 
-/* ── DAY BLOCKS ── */
-.days { padding: 0 16px; }
-.day-block { margin-bottom: 12px; border-radius: var(--radius); overflow: hidden; border: 1px solid var(--border); }
+    /* ── alert box ───────────────────────────────────────── */
+    .alert-box {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-left: 3px solid var(--atlantic);
+      border-radius: 8px;
+      padding: 14px 18px;
+      margin-bottom: 14px;
+    }
+    .alert-box.warn { border-left-color: var(--ember); }
+    .alert-title {
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--atlantic);
+      margin-bottom: 7px;
+    }
+    .alert-box.warn .alert-title { color: var(--ember); }
+    .alert-body { font-size: 13.5px; color: var(--text); line-height: 1.6; }
+    .alert-body strong { color: var(--ember); }
 
-.day-header {
-  background: var(--surface2);
-  padding: 13px 16px;
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  cursor: pointer;
-  user-select: none;
-  transition: background 0.2s;
-}
-.day-header:active { background: var(--surface3); }
-.day-num {
-  font-family: 'Shippori Mincho', serif;
-  font-size: 22px;
-  font-weight: 700;
-  color: var(--gold);
-  line-height: 1;
-  min-width: 28px;
-}
-.day-info { flex: 1; min-width: 0; }
-.day-label { font-size: 13px; font-weight: 500; color: var(--text); line-height: 1.3; }
-.day-date { font-size: 11px; color: var(--text-muted); margin-top: 2px; }
-.day-chevron {
-  color: var(--text-muted);
-  font-size: 14px;
-  transition: transform 0.25s;
-  flex-shrink: 0;
-}
-.day-block.open .day-chevron { transform: rotate(180deg); }
+    /* ── departure box ───────────────────────────────────── */
+    .departure-box {
+      background: var(--surface-alt);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 20px 22px;
+      margin-top: 16px;
+    }
+    .departure-title {
+      font-family: var(--font-d);
+      font-size: 17px;
+      font-weight: 700;
+      color: var(--text);
+      margin-bottom: 16px;
+    }
+    .departure-steps { display: flex; flex-direction: column; gap: 10px; }
+    .departure-step { display: flex; gap: 14px; align-items: flex-start; }
+    .departure-time {
+      flex-shrink: 0;
+      width: 52px;
+      font-size: 12px;
+      font-weight: 700;
+      color: var(--ember);
+      letter-spacing: 0.04em;
+      padding-top: 1px;
+    }
+    .departure-desc { font-size: 13.5px; color: var(--text); }
 
-.day-items { display: none; background: var(--surface); }
-.day-block.open .day-items { display: block; }
+    /* ── emergency box ───────────────────────────────────── */
+    .emergency-box {
+      background: rgba(200,120,69,.07);
+      border: 1px solid rgba(200,120,69,.22);
+      border-radius: 10px;
+      padding: 20px 22px;
+      margin-top: 28px;
+    }
+    .emergency-title {
+      font-size: 11px;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: var(--ember);
+      margin-bottom: 14px;
+      font-weight: 700;
+    }
+    .emergency-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(175px, 1fr));
+      gap: 14px;
+    }
+    .emergency-item-label { font-size: 11px; color: var(--muted); margin-bottom: 2px; }
+    .emergency-item-value { font-size: 15px; font-weight: 700; color: var(--text); }
+    .emergency-note { font-size: 12px; color: var(--muted); margin-top: 14px; }
 
-/* ── ITEMS ── */
-.item {
-  display: grid;
-  grid-template-columns: 52px 1fr;
-  border-bottom: 1px solid var(--border);
-}
-.item:last-child { border-bottom: none; }
-.item-time {
-  padding: 14px 0 14px 14px;
-  font-size: 10px;
-  color: var(--gold);
-  font-weight: 500;
-  letter-spacing: 0.3px;
-  line-height: 1.4;
-  padding-top: 16px;
-}
-.item-body { padding: 14px 14px 14px 8px; }
-.item-name { font-size: 13px; font-weight: 500; color: var(--text); margin-bottom: 4px; line-height: 1.4; }
-.item-desc { font-size: 11.5px; color: var(--text-dim); line-height: 1.6; }
-.item-tags { display: flex; gap: 5px; flex-wrap: wrap; margin-top: 7px; }
+    /* ── cheat-sheet ─────────────────────────────────────── */
+    .cheat-intro {
+      font-size: 13.5px;
+      color: var(--muted);
+      margin-bottom: 30px;
+      font-style: italic;
+      line-height: 1.7;
+    }
+    .cheat-section { margin-bottom: 32px; }
+    .cheat-section-title {
+      font-family: var(--font-d);
+      font-size: 19px;
+      font-weight: 700;
+      color: var(--text);
+      margin-bottom: 14px;
+      padding-bottom: 9px;
+      border-bottom: 1px solid var(--border);
+    }
+    .cheat-table { width: 100%; border-collapse: collapse; }
+    .cheat-table th {
+      font-size: 10px;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--muted);
+      text-align: left;
+      padding: 8px 10px;
+      border-bottom: 1px solid var(--border);
+    }
+    .cheat-table td {
+      padding: 10px 10px;
+      vertical-align: top;
+      font-size: 13.5px;
+      border-bottom: 1px solid rgba(255,255,255,.04);
+    }
+    .cheat-table tr:last-child td { border-bottom: none; }
+    .cheat-table .word  { color: var(--text); font-weight: 600; }
+    .cheat-table .pron  { color: var(--ember); font-style: italic; }
+    .cheat-table .meaning { color: var(--muted); }
 
-/* ── TAGS ── */
-.tag {
-  font-size: 10px;
-  padding: 2px 8px;
-  border-radius: 20px;
-  font-weight: 400;
-  letter-spacing: 0.3px;
-}
-.tag-food { background: rgba(212,168,67,0.12); color: var(--gold); border: 1px solid rgba(212,168,67,0.2); }
-.tag-nature { background: var(--sage-dim); color: var(--sage); border: 1px solid rgba(107,158,114,0.2); }
-.tag-shop { background: var(--blue-dim); color: var(--blue); border: 1px solid rgba(74,127,165,0.2); }
-.tag-culture { background: var(--purple-dim); color: var(--purple); border: 1px solid rgba(139,107,177,0.2); }
-.tag-tip { background: var(--surface3); color: var(--gold); border: 1px solid rgba(212,168,67,0.3); font-weight: 500; }
-.tag-warn { background: var(--red-dim); color: #e07060; border: 1px solid rgba(192,57,43,0.2); }
+    /* ── number grid ─────────────────────────────────────── */
+    .number-grid {
+      display: grid;
+      grid-template-columns: repeat(5, 1fr);
+      gap: 8px;
+      margin-bottom: 10px;
+    }
+    .number-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 12px 6px;
+      text-align: center;
+    }
+    .number-pt   { font-family: var(--font-d); font-size: 18px; font-weight: 700; color: var(--text); line-height: 1.2; }
+    .number-pron { font-size: 10px; color: var(--ember); font-style: italic; margin-top: 3px; line-height: 1.3; }
+    .number-nl   { font-size: 11px; color: var(--muted); margin-top: 3px; }
 
-/* ── LUGGAGE ITEM ── */
-.item.luggage-item { background: rgba(212,168,67,0.04); border-left: 2px solid var(--gold); }
+    /* ── specialiteiten pill ─────────────────────────────── */
+    .specials-pill {
+      background: var(--ember-dim);
+      border-radius: 8px;
+      padding: 12px 16px;
+      margin-top: 12px;
+      font-size: 13px;
+      line-height: 1.65;
+    }
+    .specials-pill strong { color: var(--ember); }
+    .specials-pill span   { color: var(--text); }
 
-/* ── CHEAT SHEET ── */
-.cs-section { padding: 16px 16px 4px; }
-.cs-section h3 {
-  font-family: 'Shippori Mincho', serif;
-  font-size: 16px;
-  font-weight: 700;
-  color: var(--text);
-  border-bottom: 1px solid rgba(212,168,67,0.3);
-  padding-bottom: 8px;
-  margin-bottom: 12px;
-  display: flex;
-  align-items: center;
-  gap: 8px;
-}
-
-.num-grid {
-  display: grid;
-  grid-template-columns: repeat(5, 1fr);
-  gap: 6px;
-  margin-bottom: 14px;
-}
-.num-card {
-  background: var(--surface2);
-  border: 1px solid var(--border);
-  border-radius: var(--radius-sm);
-  padding: 10px 4px;
-  text-align: center;
-}
-.num-jp { font-family: 'Shippori Mincho', serif; font-size: 20px; color: var(--gold); font-weight: 700; }
-.num-ro { font-size: 10px; color: var(--text-dim); margin-top: 2px; }
-.num-nl { font-size: 9px; color: var(--text-muted); margin-top: 1px; }
-
-.cs-table { width: 100%; border-collapse: collapse; margin-bottom: 8px; }
-.cs-table tr { border-bottom: 1px solid var(--border); }
-.cs-table tr:last-child { border-bottom: none; }
-.cs-table tr:hover { background: rgba(255,255,255,0.02); }
-.cs-table td { padding: 10px 8px; font-size: 12px; line-height: 1.5; vertical-align: top; }
-.cs-table thead td {
-  font-size: 9px;
-  letter-spacing: 1.5px;
-  text-transform: uppercase;
-  color: var(--text-muted);
-  font-weight: 500;
-  padding-bottom: 8px;
-}
-.cs-jp { color: var(--gold); font-weight: 500; width: 38%; }
-.cs-ro { color: var(--text-dim); font-style: italic; width: 30%; font-size: 11px; }
-.cs-nl { color: var(--text-muted); font-size: 11px; width: 32%; }
-
-.cs-note {
-  background: var(--surface2);
-  border: 1px solid var(--border);
-  border-left: 3px solid var(--gold);
-  border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
-  padding: 10px 12px;
-  margin-bottom: 14px;
-  font-size: 11.5px;
-  color: var(--text-dim);
-  line-height: 1.6;
-}
-.cs-note strong { color: var(--text); font-weight: 500; }
-
-/* ── EMERGENCY BOX ── */
-.emergency-box {
-  margin: 0 16px 16px;
-  background: var(--red-dim);
-  border: 1px solid rgba(192,57,43,0.3);
-  border-radius: var(--radius-sm);
-  padding: 12px 14px;
-}
-.emergency-box h4 { font-size: 11px; letter-spacing: 2px; text-transform: uppercase; color: #e07060; margin-bottom: 8px; }
-.emergency-box p { font-size: 13px; color: var(--text-dim); line-height: 1.7; }
-.emergency-box strong { color: var(--text); font-weight: 600; font-size: 15px; }
-
-/* ── TEAMLAB DECISION ── */
-.decision-box {
-  background: var(--surface2);
-  border: 1px solid rgba(139,107,177,0.3);
-  border-radius: var(--radius-sm);
-  padding: 12px 14px;
-  margin-top: 8px;
-}
-.decision-box h4 { font-size: 10px; letter-spacing: 1.5px; text-transform: uppercase; color: var(--purple); margin-bottom: 8px; font-weight: 600; }
-.decision-box p { font-size: 12px; color: var(--text-dim); line-height: 1.6; margin-bottom: 6px; }
-.alt-item { display: flex; gap: 8px; padding: 7px 0; border-bottom: 1px solid var(--border); font-size: 12px; }
-.alt-item:last-child { border-bottom: none; padding-bottom: 0; }
-.alt-emoji { flex-shrink: 0; font-size: 14px; }
-.alt-text { color: var(--text-dim); line-height: 1.5; }
-.alt-text strong { color: var(--text); font-weight: 500; }
-
-/* ── PROGRESS OVERVIEW ── */
-.overview-grid {
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: 10px;
-  padding: 0 16px 16px;
-}
-.overview-card {
-  background: var(--surface);
-  border: 1px solid var(--border);
-  border-radius: var(--radius);
-  padding: 14px;
-  position: relative;
-  overflow: hidden;
-}
-.overview-card::after {
-  content: attr(data-jp);
-  font-family: 'Shippori Mincho', serif;
-  font-size: 50px;
-  font-weight: 800;
-  color: rgba(255,255,255,0.03);
-  position: absolute;
-  bottom: -8px;
-  right: 4px;
-  pointer-events: none;
-  line-height: 1;
-}
-.ov-icon { font-size: 22px; margin-bottom: 6px; }
-.ov-city { font-size: 14px; font-weight: 600; color: var(--text); }
-.ov-dates { font-size: 11px; color: var(--text-dim); margin-top: 2px; }
-.ov-nights { font-size: 10px; color: var(--gold); margin-top: 5px; font-weight: 500; }
-
-/* ── OVERVIEW PAGE ── */
-.overview-intro {
-  padding: 20px 16px 8px;
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: 8px;
-}
-.stat-pill {
-  background: var(--surface);
-  border: 1px solid var(--border);
-  border-radius: var(--radius-sm);
-  padding: 12px;
-  text-align: center;
-}
-.stat-pill-val { font-family: 'Shippori Mincho', serif; font-size: 26px; font-weight: 700; color: var(--gold); }
-.stat-pill-lbl { font-size: 10px; color: var(--text-muted); margin-top: 3px; letter-spacing: 0.5px; }
-
-.timeline {
-  padding: 16px;
-  position: relative;
-}
-.timeline::before {
-  content: '';
-  position: absolute;
-  left: 30px;
-  top: 16px;
-  bottom: 16px;
-  width: 2px;
-  background: linear-gradient(180deg, var(--gold) 0%, rgba(212,168,67,0.1) 100%);
-}
-.tl-item {
-  display: flex;
-  gap: 14px;
-  margin-bottom: 8px;
-  position: relative;
-}
-.tl-dot {
-  width: 30px;
-  height: 30px;
-  border-radius: 50%;
-  background: var(--surface2);
-  border: 2px solid var(--gold);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 13px;
-  flex-shrink: 0;
-  position: relative;
-  z-index: 1;
-}
-.tl-card {
-  flex: 1;
-  background: var(--surface);
-  border: 1px solid var(--border);
-  border-radius: var(--radius-sm);
-  padding: 11px 13px;
-  margin-bottom: 6px;
-}
-.tl-date { font-size: 10px; color: var(--gold); font-weight: 500; letter-spacing: 0.5px; }
-.tl-city { font-size: 14px; font-weight: 600; color: var(--text); margin: 2px 0; }
-.tl-detail { font-size: 11px; color: var(--text-dim); line-height: 1.5; }
-.tl-hotel { font-size: 11px; color: var(--text-muted); margin-top: 4px; display: flex; align-items: center; gap: 4px; }
-
-/* ── RAMEN TRACKER ── */
-.ramen-section {
-  padding: 0 16px 16px;
-}
-.ramen-title {
-  font-family: 'Shippori Mincho', serif;
-  font-size: 16px;
-  font-weight: 700;
-  color: var(--text);
-  border-bottom: 1px solid rgba(212,168,67,0.3);
-  padding-bottom: 8px;
-  margin-bottom: 12px;
-  display: flex;
-  align-items: center;
-  gap: 8px;
-}
-.ramen-grid { display: flex; flex-direction: column; gap: 8px; }
-.ramen-card {
-  background: var(--surface);
-  border: 1px solid var(--border);
-  border-radius: var(--radius-sm);
-  padding: 12px 14px;
-  display: flex;
-  gap: 12px;
-  align-items: flex-start;
-}
-.ramen-num {
-  font-family: 'Shippori Mincho', serif;
-  font-size: 24px;
-  font-weight: 700;
-  color: rgba(212,168,67,0.3);
-  line-height: 1;
-  min-width: 24px;
-}
-.ramen-info { flex: 1; }
-.ramen-name { font-size: 13px; font-weight: 500; color: var(--text); }
-.ramen-place { font-size: 11px; color: var(--gold); margin-top: 2px; }
-.ramen-desc { font-size: 11px; color: var(--text-dim); margin-top: 3px; line-height: 1.5; }
-
-/* ── SCROLL TO TOP ── */
-.scroll-top {
-  position: fixed;
-  bottom: 24px;
-  right: 20px;
-  width: 42px;
-  height: 42px;
-  background: var(--gold);
-  color: var(--bg);
-  border: none;
-  border-radius: 50%;
-  font-size: 18px;
-  cursor: pointer;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  opacity: 0;
-  transition: opacity 0.3s;
-  z-index: 200;
-  box-shadow: 0 4px 20px rgba(0,0,0,0.4);
-}
-.scroll-top.visible { opacity: 1; }
-
-/* ── RESPONSIVE ── */
-@media (min-width: 480px) {
-  .overview-grid { grid-template-columns: repeat(4, 1fr); }
-  .overview-intro { grid-template-columns: repeat(4, 1fr); }
-  .hero-stats { grid-template-columns: repeat(4, 1fr); }
-}
-@media (min-width: 640px) {
-  .days { padding: 0 20px; }
-  .city-banner { padding: 32px 24px 24px; }
-  .cs-section { padding: 16px 20px 4px; }
-}
-</style>
+    /* ── mobile ──────────────────────────────────────────── */
+    @media (max-width: 500px) {
+      .hero-stats { gap: 22px; }
+      .stat-num { font-size: 30px; }
+      .number-grid { grid-template-columns: repeat(3, 1fr); }
+      .item-time { width: 44px; }
+      .overview-grid { grid-template-columns: 1fr; }
+      .cheat-table th:nth-child(2),
+      .cheat-table td:nth-child(2) { display: none; }
+    }
+  </style>
 </head>
 <body>
 
-<!-- HERO -->
-<div class="hero">
-  <div class="hero-kanji">日本</div>
-  <div class="hero-tag">🇯🇵 Rana · Lalla · Jhilani · Rouzbeh</div>
-  <h1>Japan Trip <span>2026</span></h1>
-  <div class="hero-sub">30 april – 13 mei 2026 · 4 steden · 14 dagen</div>
-  <div class="hero-stats">
-    <div class="hero-stat"><div class="hero-stat-val">14</div><div class="hero-stat-lbl">Dagen</div></div>
-    <div class="hero-stat"><div class="hero-stat-val">4</div><div class="hero-stat-lbl">Steden</div></div>
-    <div class="hero-stat"><div class="hero-stat-val">6+</div><div class="hero-stat-lbl">Ramen stops</div></div>
-    <div class="hero-stat"><div class="hero-stat-val">🟢</div><div class="hero-stat-lbl">Green Car</div></div>
-  </div>
-</div>
+  <!-- ═══ HERO ══════════════════════════════════════════════ -->
+  <div class="hero">
+    <div class="hero-watermark">MADEIRA</div>
+    <div class="hero-eyebrow">Roan &middot; Sam &middot; Rouzbeh</div>
+    <h1 class="hero-title">Mad<span class="accent">ei</span>ra</h1>
+    <p class="hero-subtitle">5 &ndash; 12 augustus 2026 &middot; 7 nachten</p>
 
-<!-- NAV -->
-<div class="nav-wrap">
-  <div class="nav-tabs">
-    <button class="nav-tab active" onclick="show('overview')"><span class="tab-emoji">📋</span>Overzicht</button>
-    <button class="nav-tab" onclick="show('tokyo1')"><span class="tab-emoji">🗼</span>Tokyo I</button>
-    <button class="nav-tab" onclick="show('kanazawa')"><span class="tab-emoji">🌊</span>Kanazawa</button>
-    <button class="nav-tab" onclick="show('kyoto')"><span class="tab-emoji">⛩️</span>Kyoto</button>
-    <button class="nav-tab" onclick="show('tokyo2')"><span class="tab-emoji">🛍️</span>Tokyo II</button>
-    <button class="nav-tab" onclick="show('cheatsheet')"><span class="tab-emoji">🗣️</span>Cheat-sheet</button>
-  </div>
-</div>
-
-<!-- ══════════ OVERZICHT ══════════ -->
-<div class="panel active" id="overview">
-
-  <div class="overview-intro">
-    <div class="stat-pill"><div class="stat-pill-val">14</div><div class="stat-pill-lbl">Nachten</div></div>
-    <div class="stat-pill"><div class="stat-pill-val">4</div><div class="stat-pill-lbl">Hotels</div></div>
-    <div class="stat-pill"><div class="stat-pill-val">5</div><div class="stat-pill-lbl">Treinen</div></div>
-    <div class="stat-pill"><div class="stat-pill-val">4</div><div class="stat-pill-lbl">Reizigers</div></div>
-  </div>
-
-  <div class="timeline">
-    <div class="tl-item">
-      <div class="tl-dot">✈️</div>
-      <div style="flex:1">
-        <div class="tl-card">
-          <div class="tl-date">30 APRIL</div>
-          <div class="tl-city">🗼 Aankomst Tokyo — Ueno</div>
-          <div class="tl-detail">Narita → Keisei Skyliner (41 min) → Ueno</div>
-          <div class="tl-hotel">🏨 Mitsui Garden Hotel Ueno · 2 nachten</div>
-        </div>
+    <div class="hero-stats">
+      <div class="stat">
+        <span class="stat-num">7</span>
+        <span class="stat-label">Dagen</span>
+      </div>
+      <div class="stat">
+        <span class="stat-num">4</span>
+        <span class="stat-label">Regio&rsquo;s</span>
+      </div>
+      <div class="stat">
+        <span class="stat-num">1</span>
+        <span class="stat-label">Auto</span>
+      </div>
+      <div class="stat">
+        <span class="stat-num">3</span>
+        <span class="stat-label">Reizigers</span>
       </div>
     </div>
-    <div class="tl-item">
-      <div class="tl-dot">🚄</div>
-      <div style="flex:1">
-        <div class="tl-card">
-          <div class="tl-date">2 MEI · 08:47</div>
-          <div class="tl-city">🌊 Kanazawa</div>
-          <div class="tl-detail">Shinkansen Hakutaka 555 · aankomst 11:43</div>
-          <div class="tl-hotel">🏨 Manten Hotel Ekimae · 3 nachten</div>
-        </div>
+
+    <div class="overview-grid">
+      <div class="overview-card">
+        <div class="overview-card-label">✈️ Heenvlucht</div>
+        <div class="overview-card-value">OR1741 &middot; 06:20 AMS &rarr; 09:45 FNC</div>
+        <div class="overview-card-sub">Tui Fly &middot; wo 5 augustus &middot; 4u 25m</div>
       </div>
-    </div>
-    <div class="tl-item">
-      <div class="tl-dot">🚄</div>
-      <div style="flex:1">
-        <div class="tl-card">
-          <div class="tl-date">5 MEI · 09:12</div>
-          <div class="tl-city">⛩️ Kyoto</div>
-          <div class="tl-detail">Tsurugi 11 → Tsuruga 09:34 · 40 min overstap ☕ · Thunderbird 14 → Kyoto 11:09 · Green Car 🟢</div>
-          <div class="tl-hotel">🏨 Cross Hotel Kyoto · 4 nachten</div>
-        </div>
+      <div class="overview-card">
+        <div class="overview-card-label">✈️ Terugvlucht</div>
+        <div class="overview-card-value">OR1742 &middot; 10:20 FNC &rarr; 15:35 AMS</div>
+        <div class="overview-card-sub">Tui Fly &middot; wo 12 augustus &middot; 4u 15m</div>
       </div>
-    </div>
-    <div class="tl-item">
-      <div class="tl-dot">🗻</div>
-      <div style="flex:1">
-        <div class="tl-card">
-          <div class="tl-date">9 MEI · 09:54</div>
-          <div class="tl-city">🛍️ Tokyo II — Gotanda</div>
-          <div class="tl-detail">Nozomi 344 · Shinagawa 11:58 · Fuji view links! 🗻 · Green Car 🟢</div>
-          <div class="tl-hotel">🏨 Mitsui Garden Hotel Gotanda · 4 nachten</div>
-        </div>
+      <div class="overview-card">
+        <div class="overview-card-label">🚗 Huurauto</div>
+        <div class="overview-card-value">Renault Captur Turbo</div>
+        <div class="overview-card-sub">Beyond Madeira &middot; Airport &middot; 5 aug 10:30 &rarr; 12 aug 08:00</div>
       </div>
-    </div>
-    <div class="tl-item">
-      <div class="tl-dot">✈️</div>
-      <div style="flex:1">
-        <div class="tl-card">
-          <div class="tl-date">13 MEI</div>
-          <div class="tl-city">🏠 Vertrek naar huis</div>
-          <div class="tl-detail">Gotanda → Shinagawa (5 min) → Narita Express → Narita Airport</div>
-          <div class="tl-hotel" style="color:var(--gold)">🧳 Koffers al op 12 mei verstuurd via Takkyubin!</div>
-        </div>
+      <div class="overview-card">
+        <div class="overview-card-label">🏠 Verblijf</div>
+        <div class="overview-card-value">Louros House &middot; 7 nachten</div>
+        <div class="overview-card-sub">Rua Doutor Juvenal 43A, Funchal &middot; Priv&eacute; parkeren</div>
       </div>
     </div>
   </div>
 
-  <div class="ramen-section">
-    <div class="ramen-title">🍜 Ramen Route — 6 stops</div>
-    <div class="ramen-grid">
-      <div class="ramen-card"><div class="ramen-num">1</div><div class="ramen-info"><div class="ramen-name">Kyushu Jangara</div><div class="ramen-place">📍 Ueno, Tokyo · Dag 1 aankomst</div><div class="ramen-desc">Hakata-stijl tonkotsu. Eerste ramen in Japan — direct na aankomst.</div></div></div>
-      <div class="ramen-card"><div class="ramen-num">2</div><div class="ramen-info"><div class="ramen-name">Fuunji</div><div class="ramen-place">📍 Shinjuku, Tokyo · Dag 2 avond</div><div class="ramen-desc">Tsukemen (dip-ramen) met dikke noodles en intense visbouillon. Top-10 Tokyo.</div></div></div>
-      <div class="ramen-card"><div class="ramen-num">3</div><div class="ramen-info"><div class="ramen-name">Menya Taiga</div><div class="ramen-place">📍 Kanazawa · Avond dag 1</div><div class="ramen-desc">Lokale Kanazawa-stijl: lichte shoyu met seafood toppings. Heel anders dan Tokyo.</div></div></div>
-      <div class="ramen-card"><div class="ramen-num">4</div><div class="ramen-info"><div class="ramen-name">Kyoto Ramen Koji</div><div class="ramen-place">📍 Kyoto Station B1 · Dag 3 lunch</div><div class="ramen-desc">8 top-restaurants onder één dak. Kyoto chintan shoyu-stijl. Vergelijk alle stijlen.</div></div></div>
-      <div class="ramen-card"><div class="ramen-num">5</div><div class="ramen-info"><div class="ramen-name">Kinryu Ramen</div><div class="ramen-place">📍 Dotonbori, Osaka · Dag 4 avond</div><div class="ramen-desc">Restaurant met de draak op het dak. Kotteri (extra vet, rijke bouillon). Open tot 05:00.</div></div></div>
-      <div class="ramen-card"><div class="ramen-num">6</div><div class="ramen-info"><div class="ramen-name">Nakiryu</div><div class="ramen-place">📍 Otsuka, Tokyo · Tokyo II dag 3</div><div class="ramen-desc">Michelin-ster tantanmen. Sesamrijke bouillon. Ga bij opening — wachtrij max 30 min.</div></div></div>
+  <!-- ═══ NAV ═══════════════════════════════════════════════ -->
+  <nav class="nav-wrap">
+    <div class="nav">
+      <button class="nav-tab active"  onclick="switchTab('funchal', this)">🌺 Funchal</button>
+      <button class="nav-tab"         onclick="switchTab('west',    this)">🏄 West</button>
+      <button class="nav-tab"         onclick="switchTab('noord',   this)">🌿 Noord</button>
+      <button class="nav-tab"         onclick="switchTab('oost',    this)">🌋 Oost</button>
+      <button class="nav-tab"         onclick="switchTab('cheat',   this)">🗣️ Cheat-sheet</button>
     </div>
-  </div>
+  </nav>
 
-  <div style="padding: 0 16px 16px">
-    <div class="tips-box">
-      <div class="tips-box-title">🧳 Takkyubin — koffers versturen schema</div>
-      <ul>
-        <li><strong>1 mei avond</strong> → Koffers naar Kanazawa Manten Hotel (bezorg 2 mei)</li>
-        <li><strong>4 mei avond</strong> → Koffers naar Cross Hotel Kyoto (bezorg 5 mei)</li>
-        <li><strong>8 mei avond</strong> → Koffers naar Mitsui Garden Gotanda (bezorg 9 mei)</li>
-        <li><strong>12 mei avond</strong> → Koffers naar <strong>Narita Airport Terminal</strong> (bezorg 13 mei) — reis met handbagage!</li>
-      </ul>
-    </div>
-  </div>
-</div>
+  <!-- ═══ CONTENT ═══════════════════════════════════════════ -->
+  <div class="content">
 
-<!-- ══════════ TOKYO I ══════════ -->
-<div class="panel" id="tokyo1">
-  <div class="city-banner">
-    <div class="city-banner-jp">東京</div>
-    <div class="city-banner-top">
-      <div class="city-banner-icon">🗼</div>
-      <div>
-        <h2>Tokyo — Ueno</h2>
-        <div class="city-banner-meta">Mitsui Garden Hotel Ueno</div>
+    <!-- ─── TAB: FUNCHAL ───────────────────────────────────── -->
+    <div id="tab-funchal" class="tab-panel active">
+      <div class="section-header">
+        <h2 class="section-title">🌺 Funchal</h2>
+        <span class="section-sub">Dag 1 &middot; 2 &middot; 7 &middot; 8</span>
       </div>
-    </div>
-    <div class="city-banner-badge">30 april – 2 mei · 2 nachten</div>
-  </div>
 
-  <div class="train-card">
-    <div class="train-row"><span class="train-badge">Aankomst</span><strong>Keisei Skyliner</strong> <span class="train-arrow">→</span> Narita <span class="train-time">→</span> Ueno <span class="train-time">41 min</span></div>
-  </div>
-
-  <div class="tips-box">
-    <div class="tips-box-title">✦ Tips Tokyo I</div>
-    <ul>
-      <li>Haal direct een <strong>IC Card (Suica/Pasmo)</strong> bij Narita — betaal metro, conbini en street food</li>
-      <li>🍜 Ramen gids: <strong>Fuunji</strong> (tsukemen Shinjuku) · <strong>Ichiran</strong> (solo hokjes) · <strong>Afuri</strong> (yuzu shoyu Harajuku) · <strong>Nakiryu</strong> (Michelin tantanmen)</li>
-      <li>Inchecken pas om 15:00 — bagage achterlaten bij receptie en direct de stad in</li>
-    </ul>
-  </div>
-
-  <div class="days">
-
-    <div class="day-block open">
-      <div class="day-header" onclick="toggleDay(this)">
-        <div class="day-num">1</div>
-        <div class="day-info">
-          <div class="day-label">Aankomst & Ueno verkennen</div>
-          <div class="day-date">30 april</div>
-        </div>
-        <span class="day-chevron">▼</span>
+      <div class="tips-box">
+        <div class="tips-box-title">⚡ Tips Funchal</div>
+        <ul>
+          <li>Louros House heeft priv&eacute; parkeerplaats &mdash; geen parkeermeters, geen gedoe in Funchal</li>
+          <li>Mercado dos Lavradores v&oacute;&oacute;r 09:00 voor echte sfeer, erna rijden toeristenbussen aan</li>
+          <li>Zona Velha &lsquo;s avonds &mdash; Rua de Santa Maria met beschilderde deuren + authentieke poncha bars</li>
+          <li>Cabo Gir&atilde;o = 590m, het hoogste zeeklif van Europa, glazen skywalk, gratis toegang</li>
+          <li>A Seta in C&acirc;mara de Lobos = meest authentieke poncha op het eiland, obligatoire stop</li>
+          <li>Monte toboggan &sim;&euro;30 voor 2 personen &mdash; toeristische val maar ook echt een Madeiran klassiek</li>
+        </ul>
       </div>
-      <div class="day-items">
-        <div class="item">
-          <div class="item-time">~13:00</div>
-          <div class="item-body">
-            <div class="item-name">🛬 Aankomst — bagage stallen bij hotel</div>
-            <div class="item-desc">Hotel inchecken kan pas om 15:00. Koffers achterlaten bij receptie en direct vertrekken. Douche en uitrusten komt later.</div>
-          </div>
-        </div>
-        <div class="item">
-          <div class="item-time">13:30</div>
-          <div class="item-body">
-            <div class="item-name">🍜 Eerste ramen in Japan</div>
-            <div class="item-desc">Kyushu Jangara (10 min lopen) voor klassieke tonkotsu. Of kies de tent met de meeste Japanners erin — dat is altijd het goede teken.</div>
-            <div class="item-tags"><span class="tag tag-food">🍜 Ramen</span></div>
-          </div>
-        </div>
-        <div class="item">
-          <div class="item-time">14:30</div>
-          <div class="item-body">
-            <div class="item-name">Ameyoko Market</div>
-            <div class="item-desc">Straatmarkt vlak bij hotel. Seafood kramen, vintage kleding, street food snacks. Perfecte eerste indruk terwijl je wacht op inchecken.</div>
-            <div class="item-tags"><span class="tag tag-shop">Markt</span><span class="tag tag-food">Street food</span></div>
-          </div>
-        </div>
-        <div class="item">
-          <div class="item-time">15:00</div>
-          <div class="item-body">
-            <div class="item-name">✅ Inchecken — douche & reset</div>
-            <div class="item-desc">30–45 min reset. Japan is +7u ten opzichte van Nederland — vroeg slapen op dag 1 bepaalt de rest van de reis.</div>
-          </div>
-        </div>
-        <div class="item">
-          <div class="item-time">17:00</div>
-          <div class="item-body">
-            <div class="item-name">Ueno Park avondwandeling</div>
-            <div class="item-desc">Rustige wandeling langs de vijver. Goed om de jetlag te lopen en de eerste avondlucht van Japan op te snuiven.</div>
-            <div class="item-tags"><span class="tag tag-nature">Natuur</span></div>
-          </div>
-        </div>
-      </div>
-    </div>
 
-    <div class="day-block">
-      <div class="day-header" onclick="toggleDay(this)">
-        <div class="day-num">2</div>
-        <div class="day-info">
-          <div class="day-label">Asakusa + Yanaka + Akihabara + Shibuya</div>
-          <div class="day-date">1 mei</div>
-        </div>
-        <span class="day-chevron">▼</span>
-      </div>
-      <div class="day-items">
-        <div class="item">
-          <div class="item-time">08:00</div>
-          <div class="item-body">
-            <div class="item-name">Senso-ji Tempel — Asakusa</div>
-            <div class="item-desc">Ja, toeristisch — maar vóór 08:30 is het verschil tussen magie en mensenmassa. Skip de Chinese rommel op Nakamise, focus op de zijsteegjes (Nishi-Sando) voor echte Japanse kramen.</div>
-            <div class="item-tags"><span class="tag tag-culture">Cultuur</span></div>
+      <!-- DAG 1 -->
+      <div class="day-block" id="dag1">
+        <div class="day-header" onclick="toggleDay('dag1')">
+          <div class="day-header-left">
+            <div class="day-num">1</div>
+            <div class="day-info">
+              <div class="day-title">Aankomst &amp; eerste avond Funchal</div>
+              <div class="day-date">woensdag 5 augustus</div>
+            </div>
           </div>
+          <div class="day-toggle">▾</div>
         </div>
-        <div class="item">
-          <div class="item-time">10:00</div>
-          <div class="item-body">
-            <div class="item-name">Yanaka — de wijk die toeristen missen</div>
-            <div class="item-desc">Lopen vanuit Asakusa. Oude begraafplaats, ambachtslieden, lokale kattenbuurt. Voelt als Tokyo van 50 jaar geleden. Yanaka Ginza voor street food. Géén toeristenborden.</div>
-            <div class="item-tags"><span class="tag tag-culture">Hidden gem</span><span class="tag tag-food">Street food</span></div>
+        <div class="day-body">
+          <div class="item-row">
+            <div class="item-time">06:20</div>
+            <div class="item-content">
+              <div class="item-title">✈️ Vertrek Amsterdam Schiphol</div>
+              <div class="item-desc">OR1741. Rechtstreeks, 4u 25m. Check-in bij TUI sluit vroeg &mdash; reken op 04:30 op het vliegveld.</div>
+              <div class="tags"><span class="tag tag-atlantic">Vlucht</span></div>
+            </div>
           </div>
-        </div>
-        <div class="item">
-          <div class="item-time">12:30</div>
-          <div class="item-body">
-            <div class="item-name">🍱 Lunch + Akihabara Electronics</div>
-            <div class="item-desc">Lunch bij eethal in het station. Dan: Yodobashi Camera, Bic Camera, anime merchandise, retro games.</div>
-            <div class="item-tags"><span class="tag tag-shop">Electronics</span><span class="tag tag-food">Lunch</span></div>
+          <div class="item-row">
+            <div class="item-time">09:45</div>
+            <div class="item-content">
+              <div class="item-title">🛬 Aankomst FNC &mdash; auto ophalen</div>
+              <div class="item-desc">Beyond Madeira pick-up 10:30 op de airport. Renault Captur Turbo. Controleer schade voor je wegrijdt en maak foto&rsquo;s.</div>
+              <div class="tags"><span class="tag tag-ember">Auto ophalen 10:30</span></div>
+            </div>
           </div>
-        </div>
-        <div class="item">
-          <div class="item-time">16:30</div>
-          <div class="item-body">
-            <div class="item-name">Shibuya Crossing — van binnenin</div>
-            <div class="item-desc">Sta er middenin bij groen — dát is de echte ervaring. Voor uitzicht: Mag's Park dak van Shibuya 109 (gratis) of Scramble Square 14e verdieping Starbucks. <strong>Skip Shibuya Sky</strong> — ¥2.000+ voor exact hetzelfde gratis uitzicht.</div>
-            <div class="item-tags"><span class="tag tag-culture">Must-see</span></div>
+          <div class="item-row">
+            <div class="item-time">11:30</div>
+            <div class="item-content">
+              <div class="item-title">🏠 Louros House &mdash; koffers stallen</div>
+              <div class="item-desc">Rua Doutor Juvenal 43A. Priv&eacute; parkeerplaats ter plekke. Inchecken vermoedelijk pas na 14:00 &mdash; koffers stallen bij receptie en direct de stad in.</div>
+              <div class="tags"><span class="tag tag-muted">Verblijf</span></div>
+            </div>
           </div>
-        </div>
-        <div class="item">
-          <div class="item-time">19:30</div>
-          <div class="item-body">
-            <div class="item-name">🍜 Ramen: Fuunji — Shinjuku</div>
-            <div class="item-desc">Tsukemen (dip-ramen) met dikke noodles en intense visbouillon. Staat in elke serieuze Tokyo ramen-lijst. Wachtrij is normaal — het is de moeite waard.</div>
-            <div class="item-tags"><span class="tag tag-food">🍜 Ramen</span></div>
+          <div class="item-row">
+            <div class="item-time">12:30</div>
+            <div class="item-content">
+              <div class="item-title">🛒 Continente &mdash; supermarktrun</div>
+              <div class="item-desc">Continente Bom Dia of Pingo Doce vlakbij het centrum. Drank, ontbijt en snacks voor de week inslaan. Lunch ter plekke of bij een lunchcaf&eacute;.</div>
+              <div class="tags"><span class="tag tag-muted">Praktisch</span></div>
+            </div>
           </div>
-        </div>
-        <div class="item luggage-item">
-          <div class="item-time">Na diner</div>
-          <div class="item-body">
-            <div class="item-name">🧳 Koffers versturen naar Kanazawa</div>
-            <div class="item-desc">Yamato formulieren bij FamilyMart of 7-Eleven. Bestemming: Kanazawa Manten Hotel Ekimae (Japans adres via visitekaartje hotel). Bezorgdag: 2 mei. ~¥1.500–2.000 per koffer.</div>
-            <div class="item-tags"><span class="tag tag-tip">🧳 Takkyubin</span></div>
+          <div class="item-row">
+            <div class="item-time">15:00</div>
+            <div class="item-content">
+              <div class="item-title">✅ Inchecken &amp; reset</div>
+              <div class="item-desc">Douche, koffers uitpakken. Vermijd een dutje &mdash; slaap gewoon laat door. De eerste avond ligt voor je.</div>
+            </div>
+          </div>
+          <div class="item-row">
+            <div class="item-time">17:00</div>
+            <div class="item-content">
+              <div class="item-title">🚶 Zona Velha &mdash; eerste verkenning</div>
+              <div class="item-desc">Rua de Santa Maria met de beschilderde deuren. 5 minuten lopen van het centrum. Overdag al mooi &mdash; na 19:00 echt de moeite.</div>
+              <div class="tags"><span class="tag tag-ember">Must-see</span></div>
+            </div>
+          </div>
+          <div class="item-row">
+            <div class="item-time">19:30</div>
+            <div class="item-content">
+              <div class="item-title">🍽️ Eerste diner Funchal</div>
+              <div class="item-desc">Restaurante Port&atilde;o of O Celeiro in de Zona Velha. Bestel espetada en bolo do caco &mdash; daarmee stel je de benchmark voor de rest van de week.</div>
+              <div class="tags"><span class="tag tag-ember">Eten</span><span class="tag tag-muted">Zona Velha</span></div>
+            </div>
           </div>
         </div>
       </div>
-    </div>
 
-  </div>
-</div>
-
-<!-- ══════════ KANAZAWA ══════════ -->
-<div class="panel" id="kanazawa">
-  <div class="city-banner">
-    <div class="city-banner-jp">金沢</div>
-    <div class="city-banner-top">
-      <div class="city-banner-icon">🌊</div>
-      <div>
-        <h2>Kanazawa</h2>
-        <div class="city-banner-meta">Manten Hotel Ekimae</div>
-      </div>
-    </div>
-    <div class="city-banner-badge">2 mei – 5 mei · 3 nachten</div>
-  </div>
-
-  <div class="train-card">
-    <div class="train-row"><span class="train-badge">Shinkansen</span><strong>Hakutaka 555</strong> Ueno <span class="train-time">08:47</span> <span class="train-arrow">→</span> Kanazawa <span class="train-time">11:43</span></div>
-  </div>
-
-  <div class="tips-box">
-    <div class="tips-box-title">✦ Tips Kanazawa</div>
-    <ul>
-      <li>Japan's best bewaarde geheime stad — géén Tokyo-drukte, wél topkwaliteit seafood</li>
-      <li>🦀 <strong>Omicho Market</strong>: vers krab, kaisendon, sashimi. Ga direct na aankomst</li>
-      <li>🍜 Lokale ramen heeft lichte shoyu-basis met seafood toppings — heel anders dan Tokyo</li>
-      <li>Inchecken pas 15:00 — koffers achterlaten en direct naar Omicho</li>
-    </ul>
-  </div>
-
-  <div class="days">
-
-    <div class="day-block open">
-      <div class="day-header" onclick="toggleDay(this)">
-        <div class="day-num">1</div>
-        <div class="day-info">
-          <div class="day-label">Aankomst + Omicho + Kenroku-en + Higashi Chaya</div>
-          <div class="day-date">2 mei</div>
-        </div>
-        <span class="day-chevron">▼</span>
-      </div>
-      <div class="day-items">
-        <div class="item">
-          <div class="item-time">11:43</div>
-          <div class="item-body">
-            <div class="item-name">🚄 Aankomst — bagage stallen</div>
-            <div class="item-desc">Hotel kan pas om 15:00 inchecken. Koffers bij receptie — vertrek direct. Kanazawa Station zelf is al indrukwekkend: bezoek de Tsuzumi Gate.</div>
+      <!-- DAG 2 -->
+      <div class="day-block" id="dag2">
+        <div class="day-header" onclick="toggleDay('dag2')">
+          <div class="day-header-left">
+            <div class="day-num">2</div>
+            <div class="day-info">
+              <div class="day-title">Mercado &middot; Monte &middot; Cabo Gir&atilde;o</div>
+              <div class="day-date">donderdag 6 augustus</div>
+            </div>
           </div>
+          <div class="day-toggle">▾</div>
         </div>
-        <div class="item">
-          <div class="item-time">12:00</div>
-          <div class="item-body">
-            <div class="item-name">🦀 Direct: Omicho Market</div>
-            <div class="item-desc">Verse krab, kaisendon, sashimi van de dag. Markten zijn 's ochtends en middag op hun best — dit is het juiste moment.</div>
-            <div class="item-tags"><span class="tag tag-food">Must-eat</span><span class="tag tag-shop">Markt</span></div>
+        <div class="day-body">
+          <div class="item-row">
+            <div class="item-time">08:30</div>
+            <div class="item-content">
+              <div class="item-title">🥭 Mercado dos Lavradores</div>
+              <div class="item-desc">Het kleurrijkste marktgebouw van Madeira. Exotisch fruit, verse vis, poncha kramen. V&oacute;&oacute;r 09:00 &mdash; daarna komen de bussen en is de sfeer weg.</div>
+              <div class="tags"><span class="tag tag-ember">Must-see</span><span class="tag tag-muted">Markt</span></div>
+            </div>
           </div>
-        </div>
-        <div class="item">
-          <div class="item-time">13:30</div>
-          <div class="item-body">
-            <div class="item-name">Kenroku-en Garden</div>
-            <div class="item-desc">Een van Japan's drie beroemdste tuinen. Weelderig groen, vijvers, traditionele lantaarns. Perfect voor de uren voor inchecken.</div>
-            <div class="item-tags"><span class="tag tag-nature">Must-see</span></div>
+          <div class="item-row">
+            <div class="item-time">09:30</div>
+            <div class="item-content">
+              <div class="item-title">🚡 Monte cable car &mdash; omhoog</div>
+              <div class="item-desc">Kabelbaanrit naar Monte (10 min). &sim;&euro;15 pp voor de oprit. Neem alleen de oprit &mdash; de terugrit is goedkoper via de toboggan. Monte Palace Tropical Garden direct bij de aankomsthalte.</div>
+              <div class="tags"><span class="tag tag-ember">Must-do</span><span class="tag tag-atlantic">&sim;€15 omhoog</span></div>
+            </div>
           </div>
-        </div>
-        <div class="item">
-          <div class="item-time">15:00</div>
-          <div class="item-body"><div class="item-name">✅ Inchecken</div></div>
-        </div>
-        <div class="item">
-          <div class="item-time">16:30</div>
-          <div class="item-body">
-            <div class="item-name">Higashi Chaya District</div>
-            <div class="item-desc">Edo-era geisha wijk. Historische houten huizen, goudblad-winkeltjes, theehuizen. Mooiste in het late middagslicht.</div>
-            <div class="item-tags"><span class="tag tag-culture">Cultuur</span><span class="tag tag-shop">Souvenirs</span></div>
+          <div class="item-row">
+            <div class="item-time">10:15</div>
+            <div class="item-content">
+              <div class="item-title">🌿 Monte Palace Tropical Garden</div>
+              <div class="item-desc">Spectaculaire botanische tuin met koi-vijvers, azulejo-tegelwanden en panoramisch uitzicht over Funchal. Plan 45&ndash;60 minuten.</div>
+              <div class="tags"><span class="tag tag-muted">Tuin</span></div>
+            </div>
           </div>
-        </div>
-        <div class="item">
-          <div class="item-time">19:00</div>
-          <div class="item-body">
-            <div class="item-name">🍜 Ramen diner: Menya Taiga</div>
-            <div class="item-desc">Kanazawa-stijl ramen: shoyu-basis met seafood toppings. Daarna een glas lokale sake in een kleine izakaya.</div>
-            <div class="item-tags"><span class="tag tag-food">🍜 Ramen</span></div>
+          <div class="item-row">
+            <div class="item-time">11:30</div>
+            <div class="item-content">
+              <div class="item-title">🛷 Monte Toboggan</div>
+              <div class="item-desc">&sim;&euro;30 voor 2 personen. De legendarische wilgenmand-rodelbaan naar beneden. 10 minuten. Toeristische val &eacute;n een Madeiran klassiek tegelijk. Doe het eenmalig.</div>
+              <div class="tags"><span class="tag tag-ember">Eenmalig</span><span class="tag tag-atlantic">&sim;€30 / 2p</span></div>
+            </div>
           </div>
-        </div>
-      </div>
-    </div>
-
-    <div class="day-block">
-      <div class="day-header" onclick="toggleDay(this)">
-        <div class="day-num">2</div>
-        <div class="day-info">
-          <div class="day-label">Kasteel + Ninjadera + Katamachi + Museum</div>
-          <div class="day-date">3 mei</div>
-        </div>
-        <span class="day-chevron">▼</span>
-      </div>
-      <div class="day-items">
-        <div class="item">
-          <div class="item-time">09:00</div>
-          <div class="item-body">
-            <div class="item-name">Kanazawa Castle Park</div>
-            <div class="item-desc">Gratis toegang. Wandel over de vestingmuren met uitzicht. Direct naast Kenroku-en.</div>
-            <div class="item-tags"><span class="tag tag-culture">Cultuur</span><span class="tag tag-nature">Wandelen</span></div>
+          <div class="item-row">
+            <div class="item-time">12:30</div>
+            <div class="item-content">
+              <div class="item-title">🐟 Lunch C&acirc;mara de Lobos</div>
+              <div class="item-desc">Schilderachtig vissersdorp 10 min ten westen van Funchal. Eet espada (zwarte degenvis) bij een havenrestaurant. Nergens zo vers als hier.</div>
+              <div class="tags"><span class="tag tag-ember">Eten</span><span class="tag tag-muted">C&acirc;mara de Lobos</span></div>
+            </div>
           </div>
-        </div>
-        <div class="item">
-          <div class="item-time">11:00</div>
-          <div class="item-body">
-            <div class="item-name">Ninja-dera (Myoryuji Tempel)</div>
-            <div class="item-desc">Beroemde "ninjatempel" vol geheime gangen en valluiken. <strong>Reserveer vooraf!</strong> Engelstalige tour beschikbaar.</div>
-            <div class="item-tags"><span class="tag tag-culture">Must-see</span></div>
+          <div class="item-row">
+            <div class="item-time">13:30</div>
+            <div class="item-content">
+              <div class="item-title">🥃 A Seta &mdash; poncha stop</div>
+              <div class="item-desc">Legendarische poncha bar in C&acirc;mara de Lobos. De meest authentieke poncha op het eiland. Poncha = aguardente + honing + citroen. Drink er &eacute;&eacute;n.</div>
+              <div class="tags"><span class="tag tag-ember">Must-do</span></div>
+            </div>
           </div>
-        </div>
-        <div class="item">
-          <div class="item-time">13:00</div>
-          <div class="item-body">
-            <div class="item-name">🍛 Lunch: Katamachi — Kanazawa curry</div>
-            <div class="item-desc">Lokale specialiteit. Levendige uitgaansbuurt.</div>
-            <div class="item-tags"><span class="tag tag-food">Local specialty</span></div>
+          <div class="item-row">
+            <div class="item-time">14:30</div>
+            <div class="item-content">
+              <div class="item-title">🌊 Cabo Gir&atilde;o Skywalk</div>
+              <div class="item-desc">590m &mdash; het hoogste zeeklif van Europa. Glazen loopbrug over de rand. Gratis toegang. 20 min van C&acirc;mara de Lobos richting west. Verplicht.</div>
+              <div class="tags"><span class="tag tag-ember">Must-see</span><span class="tag tag-muted">Gratis</span></div>
+            </div>
           </div>
-        </div>
-        <div class="item">
-          <div class="item-time">14:30</div>
-          <div class="item-body">
-            <div class="item-name">21st Century Museum of Contemporary Art</div>
-            <div class="item-desc">Beroemd voor het "zwembad-illusie" kunstwerk van Leandro Erlich. Gratis buitentuin, betaald binnendeel.</div>
-            <div class="item-tags"><span class="tag tag-culture">Cultuur</span></div>
+          <div class="item-row">
+            <div class="item-time">16:00</div>
+            <div class="item-content">
+              <div class="item-title">🏖️ Praia Formosa</div>
+              <div class="item-desc">Funchal&rsquo;s grootste strand. Kiezel, maar helder water. Goed voor het eerste zwemmen van de reis op weg terug naar de stad.</div>
+              <div class="tags"><span class="tag tag-atlantic">Strand</span></div>
+            </div>
           </div>
-        </div>
-        <div class="item">
-          <div class="item-time">16:30</div>
-          <div class="item-body">
-            <div class="item-name">Kohrinbo Shopping</div>
-            <div class="item-desc">Kanazawa's winkelgebied. Lokale ambachten en goudblad-producten (typisch Kanazawa).</div>
-            <div class="item-tags"><span class="tag tag-shop">Winkelen</span></div>
+          <div class="item-row">
+            <div class="item-time">19:30</div>
+            <div class="item-content">
+              <div class="item-title">🍽️ Diner Funchal</div>
+              <div class="item-desc">Armazém do Sal (reserveer vooraf, elegant gewelfd plafond) of Faia d&rsquo;&Aacute;gua (live Madeiran muziek). Beide in het centrum &mdash; beide uitstekend.</div>
+              <div class="tags"><span class="tag tag-ember">Reserveer vooraf</span></div>
+            </div>
           </div>
         </div>
       </div>
-    </div>
 
-    <div class="day-block">
-      <div class="day-header" onclick="toggleDay(this)">
-        <div class="day-num">3</div>
-        <div class="day-info">
-          <div class="day-label">Nishichaya / Noto + Afscheidsdiner</div>
-          <div class="day-date">4 mei</div>
+      <!-- DAG 7 -->
+      <div class="day-block" id="dag7">
+        <div class="day-header" onclick="toggleDay('dag7')">
+          <div class="day-header-left">
+            <div class="day-num">7</div>
+            <div class="day-info">
+              <div class="day-title">Rustdag &amp; afscheidsdiner</div>
+              <div class="day-date">dinsdag 11 augustus</div>
+            </div>
+          </div>
+          <div class="day-toggle">▾</div>
         </div>
-        <span class="day-chevron">▼</span>
+        <div class="day-body">
+          <div class="item-row">
+            <div class="item-time">Vrij</div>
+            <div class="item-content">
+              <div class="item-title">☀️ Vrije ochtend &mdash; strand of zwembad</div>
+              <div class="item-desc">Geen schema. Lido Swimming Complex heeft buitenbaden direct aan de Atlantische kust &mdash; reken op een kleine entreeprijs. Of gewoon Praia Formosa.</div>
+              <div class="tags"><span class="tag tag-atlantic">Strand</span></div>
+            </div>
+          </div>
+          <div class="item-row">
+            <div class="item-time">12:00</div>
+            <div class="item-content">
+              <div class="item-title">🛍️ Winkelen centrum</div>
+              <div class="item-desc">Rua do Aljube en Rua Dr. Fern&atilde;o de Ornelas voor lokale winkels. Poncha, Madeiran wijn, ambachten. Laatste kans voor souvenirs.</div>
+              <div class="tags"><span class="tag tag-muted">Winkelen</span></div>
+            </div>
+          </div>
+          <div class="item-row">
+            <div class="item-time">14:00</div>
+            <div class="item-content">
+              <div class="item-title">☕ Middagkoffie &amp; stad</div>
+              <div class="item-desc">Wander. Caf&eacute; met uitzicht. Boek. Morgen vroeg op &mdash; sla de grote avondwandeling over.</div>
+            </div>
+          </div>
+          <div class="item-row">
+            <div class="item-time">19:30</div>
+            <div class="item-content">
+              <div class="item-title">🥂 Afscheidsdiner</div>
+              <div class="item-desc">Armazém do Sal of Faia d&rsquo;&Aacute;gua. Reserveer minstens 2 dagen van tevoren. Bestel de espetada aan het laurierhouten stokje en laat de avond lang worden.</div>
+              <div class="tags"><span class="tag tag-ember">Reserveer vooraf</span><span class="tag tag-ember">Must-do</span></div>
+            </div>
+          </div>
+          <div class="alert-box warn" style="margin-top:18px;">
+            <div class="alert-title">⏰ Morgenochtend vroeg op</div>
+            <div class="alert-body">Koffers vanavond klaar. Auto moet om <strong>08:00</strong> ingeleverd bij het airport. Vertrek Louros House om <strong>07:30</strong>.</div>
+          </div>
+        </div>
       </div>
-      <div class="day-items">
-        <div class="item">
-          <div class="item-time">Optie A</div>
-          <div class="item-body">
-            <div class="item-name">🚌 Noto Peninsula dagtrip</div>
-            <div class="item-desc">Prachtige kustlijn met dramatische rotsen en vissersplaatsen. Huur auto of boek dagtoer (2,5u heen).</div>
-            <div class="item-tags"><span class="tag tag-nature">Natuur</span></div>
+
+      <!-- DAG 8 -->
+      <div class="day-block" id="dag8">
+        <div class="day-header" onclick="toggleDay('dag8')">
+          <div class="day-header-left">
+            <div class="day-num">8</div>
+            <div class="day-info">
+              <div class="day-title">✈️ Vertrek naar Amsterdam</div>
+              <div class="day-date">woensdag 12 augustus</div>
+            </div>
+          </div>
+          <div class="day-toggle">▾</div>
+        </div>
+        <div class="day-body">
+          <div class="departure-box">
+            <div class="departure-title">⏱️ Vertrekschema</div>
+            <div class="departure-steps">
+              <div class="departure-step">
+                <div class="departure-time">07:30</div>
+                <div class="departure-desc">Vertrek Louros House &mdash; koffers in de auto</div>
+              </div>
+              <div class="departure-step">
+                <div class="departure-time">08:00</div>
+                <div class="departure-desc">🚗 Auto inleveren &mdash; Beyond Madeira airport drop-off</div>
+              </div>
+              <div class="departure-step">
+                <div class="departure-time">08:30</div>
+                <div class="departure-desc">Check-in &amp; bagage opgeven &mdash; TUI rij kan lang zijn</div>
+              </div>
+              <div class="departure-step">
+                <div class="departure-time">10:20</div>
+                <div class="departure-desc">✈️ OR1742 vertrek FNC &rarr; AMS &middot; 4u 15m</div>
+              </div>
+              <div class="departure-step">
+                <div class="departure-time">15:35</div>
+                <div class="departure-desc">🏠 Aankomst Amsterdam Schiphol</div>
+              </div>
+            </div>
           </div>
         </div>
-        <div class="item">
-          <div class="item-time">Optie B</div>
-          <div class="item-body">
-            <div class="item-name">Nishichaya & Kazuemachi wijken</div>
-            <div class="item-desc">Twee kleinere geisha-wijken die minder toeristen zien. Rustig, sfeervol, authentiek Kanazawa.</div>
-            <div class="item-tags"><span class="tag tag-culture">Cultuur</span></div>
+      </div>
+
+      <!-- NOODGEVALLEN -->
+      <div class="emergency-box">
+        <div class="emergency-title">🚨 Noodgevallen &amp; contacten</div>
+        <div class="emergency-grid">
+          <div>
+            <div class="emergency-item-label">Noodlijn (alle diensten)</div>
+            <div class="emergency-item-value">112</div>
+          </div>
+          <div>
+            <div class="emergency-item-label">Hospital Dr. N&eacute;lio Mendon&ccedil;a</div>
+            <div class="emergency-item-value">+351 291 705 600</div>
+          </div>
+          <div>
+            <div class="emergency-item-label">NL Ambassade Lissabon</div>
+            <div class="emergency-item-value">+351 213 914 900</div>
+          </div>
+          <div>
+            <div class="emergency-item-label">TUI Fly klantenservice</div>
+            <div class="emergency-item-value">+31 20 800 8400</div>
           </div>
         </div>
-        <div class="item">
-          <div class="item-time">Avond</div>
-          <div class="item-body">
-            <div class="item-name">🍣 Afscheidsdiner: omakase sushi óf wagyu</div>
-            <div class="item-desc">Kanazawa staat na Tokyo bekend als beste sushi-stad. Of ga voor Kanazawa wagyu steak restaurant. Vraag hotel om reservering te helpen.</div>
-            <div class="item-tags"><span class="tag tag-food">Must-eat</span></div>
-          </div>
-        </div>
-        <div class="item luggage-item">
-          <div class="item-time">Na diner</div>
-          <div class="item-body">
-            <div class="item-name">🧳 Koffers versturen naar Kyoto</div>
-            <div class="item-desc">Yamato bij dichtstbijzijnde conbini. Bestemming: Cross Hotel Kyoto (Japans adres via visitekaartje). Bezorgdag: 5 mei. Morgen vertrekken jullie om 09:12 met alleen handbagage.</div>
-            <div class="item-tags"><span class="tag tag-tip">🧳 Takkyubin</span></div>
-          </div>
-        </div>
+        <div class="emergency-note">Beyond Madeira contactgegevens staan op de boekingsbevestiging.</div>
       </div>
     </div>
 
-  </div>
-</div>
-
-<!-- ══════════ KYOTO ══════════ -->
-<div class="panel" id="kyoto">
-  <div class="city-banner">
-    <div class="city-banner-jp">京都</div>
-    <div class="city-banner-top">
-      <div class="city-banner-icon">⛩️</div>
-      <div>
-        <h2>Kyoto</h2>
-        <div class="city-banner-meta">Cross Hotel Kyoto</div>
+    <!-- ─── TAB: WEST ───────────────────────────────────────── -->
+    <div id="tab-west" class="tab-panel">
+      <div class="section-header">
+        <h2 class="section-title">🏄 West</h2>
+        <span class="section-sub">Dag 3</span>
       </div>
-    </div>
-    <div class="city-banner-badge">5 mei – 9 mei · 4 nachten</div>
-  </div>
 
-  <div class="train-card">
-    <div class="train-row"><span class="train-badge">Tsurugi 11</span> Kanazawa <span class="train-time">09:12</span> <span class="train-arrow">→</span> Tsuruga <span class="train-time">09:34</span> · ☕ 40 min overstap</div>
-    <div class="train-row" style="margin-top:5px"><span class="train-badge">Thunderbird 14</span> Tsuruga <span class="train-time">10:14</span> <span class="train-arrow">→</span> Kyoto <span class="train-time">11:09</span> · Green Car 🟢</div>
-  </div>
-
-  <div class="tips-box">
-    <div class="tips-box-title">✦ Tips Kyoto</div>
-    <ul>
-      <li>5 mei = Japanse nationale feestdag — verwacht drukte bij tempels, ga vroeg</li>
-      <li>🦑 <strong>Nishiki Market</strong>: beste street food van de reis — 5 min van het station, ga direct na aankomst</li>
-      <li>🎭 <strong>Kamogawa Odori</strong>: reserveer vooraf via hotel concierge — loopt t/m 24 mei, intiem theater, vol vol vol</li>
-      <li>🍜 <strong>Omen</strong> op Philosopher's Path: dag 3 lunch — klassiek Kyoto udon, geen reservering nodig maar vroeg gaan</li>
-      <li>👟 <strong>Shijo-Kawaramachi</strong>: Onitsuka Tiger flagship + Zara/H&M/Nike/Adidas in OPA en LAQUE — ga na Golden Week (7+ mei) voor rustige winkelervaring. Zelfde prijzen als Tokyo, minder drukte.</li>
-      <li>Huur fietsen — Kyoto is perfect fietsbaar</li>
-    </ul>
-  </div>
-
-  <div class="days">
-
-    <div class="day-block open">
-      <div class="day-header" onclick="toggleDay(this)">
-        <div class="day-num">1</div>
-        <div class="day-info">
-          <div class="day-label">Aankomst + Nishiki + Fushimi Inari + Gion</div>
-          <div class="day-date">5 mei</div>
-        </div>
-        <span class="day-chevron">▼</span>
+      <div class="tips-box">
+        <div class="tips-box-title">⚡ Tips West-Madeira</div>
+        <ul>
+          <li>Paul do Mar = linkse breker, beste bij NW swell &mdash; niet geschikt voor beginners zonder ervaring</li>
+          <li>Surfles ter plekke: Madeira Surf Center of Flower Power Surf &sim;&euro;35&ndash;45 pp inclusief board</li>
+          <li>Calheta strand = kunstmatig aangelegd zand, veilig zwemmen &mdash; een zeldzaamheid op Madeira</li>
+          <li>Ponta do Pargo = westelijkste punt van het eiland, vuurtoren, kliffen, gratis</li>
+          <li>Rij de VR1 kustweg terug richting Funchal &mdash; sneller dan de binnenweg en mooier</li>
+        </ul>
       </div>
-      <div class="day-items">
-        <div class="item">
-          <div class="item-time">11:09</div>
-          <div class="item-body">
-            <div class="item-name">🚄 Aankomst — bagage stallen bij hotel</div>
-            <div class="item-desc">Cross Hotel is op loopafstand van het station. Koffers bij receptie — inchecken pas om 15:00. Vertrek direct naar Nishiki.</div>
+
+      <!-- DAG 3 -->
+      <div class="day-block" id="dag3">
+        <div class="day-header" onclick="toggleDay('dag3')">
+          <div class="day-header-left">
+            <div class="day-num">3</div>
+            <div class="day-info">
+              <div class="day-title">Paul do Mar &middot; Calheta &middot; Ponta do Pargo</div>
+              <div class="day-date">vrijdag 7 augustus</div>
+            </div>
           </div>
+          <div class="day-toggle">▾</div>
         </div>
-        <div class="item">
-          <div class="item-time">11:30</div>
-          <div class="item-body">
-            <div class="item-name">🦑 Direct: Nishiki Market</div>
-            <div class="item-desc">5 min lopen van station. Gegrilde octopus-spiesjes, sashimi, tamagoyaki, matcha mochi. Loop de hele markt door en proef van elk kraampje. Plan 1,5 uur — een van de hoogtepunten van de reis.</div>
-            <div class="item-tags"><span class="tag tag-food">Must-eat</span><span class="tag tag-shop">Markt</span></div>
+        <div class="day-body">
+          <div class="item-row">
+            <div class="item-time">08:30</div>
+            <div class="item-content">
+              <div class="item-title">🚗 Vertrek richting west</div>
+              <div class="item-desc">1u 15m vanaf Funchal via de VR1/ER101. De zuidkustweg geeft al direct spectaculaire uitzichten. Vroeg vertrekken = betere lichtstand voor de kliffen.</div>
+            </div>
           </div>
-        </div>
-        <div class="item">
-          <div class="item-time">13:30</div>
-          <div class="item-body">
-            <div class="item-name">Fushimi Inari Shrine</div>
-            <div class="item-desc">Duizenden rode torii-poorten over asfaltpaden. Ga de hele weg omhoog (4km, 2–3 uur) voor het uitzicht dat 90% nooit ziet. Terug ~16:30 — perfect voor inchecken.</div>
-            <div class="item-tags"><span class="tag tag-culture">Must-see</span><span class="tag tag-nature">Wandelen</span></div>
+          <div class="item-row">
+            <div class="item-time">09:45</div>
+            <div class="item-content">
+              <div class="item-title">🏄 Paul do Mar</div>
+              <div class="item-desc">Surfdorp aan de westkust. Linkshandige golf, werkt op NW-swell. Observeer de golven vanuit de haven. Als het te groot of te rommelig is &mdash; skip surfen en ga naar Calheta voor rustig water. Surfscholen ter plekke aanwezig.</div>
+              <div class="tags"><span class="tag tag-ember">Surfen</span><span class="tag tag-atlantic">Check condities</span></div>
+            </div>
           </div>
-        </div>
-        <div class="item">
-          <div class="item-time">17:00</div>
-          <div class="item-body"><div class="item-name">✅ Inchecken — douche & reset</div></div>
-        </div>
-        <div class="item">
-          <div class="item-time">18:00</div>
-          <div class="item-body">
-            <div class="item-name">Gion District — avondwandeling</div>
-            <div class="item-desc">Hanamikoji Street na 18:00. Kans op een maiko (geisha in opleiding). Rustig lopen — dit is de perfecte introductie tot Kyoto's sfeer.</div>
-            <div class="item-tags"><span class="tag tag-culture">Must-see</span></div>
+          <div class="item-row">
+            <div class="item-time">11:00</div>
+            <div class="item-content">
+              <div class="item-title">🌊 Surftijd of kliffenwandeling</div>
+              <div class="item-desc">Als condities goed: surfles of vrij surfen. Als niet: wandeling langs de kliffenweg boven Paul do Mar &mdash; spectaculair uitzicht. Of gewoon koffie in het dorpje en observeren.</div>
+              <div class="tags"><span class="tag tag-atlantic">Strand</span></div>
+            </div>
+          </div>
+          <div class="item-row">
+            <div class="item-time">13:00</div>
+            <div class="item-content">
+              <div class="item-title">🍽️ Lunch Calheta</div>
+              <div class="item-desc">Visrestaurantjes aan de haven van Calheta. Gegrilde vis, verse octopus. Goedkopere prijzen en versere vis dan Funchal.</div>
+              <div class="tags"><span class="tag tag-ember">Eten</span></div>
+            </div>
+          </div>
+          <div class="item-row">
+            <div class="item-time">14:30</div>
+            <div class="item-content">
+              <div class="item-title">🏖️ Calheta strand &mdash; zwemmen</div>
+              <div class="item-desc">Het enige echt zandige strand van Madeira. Kunstmatig aangelegd maar heerlijk. Veilig zwemmen, watersportverhuur aanwezig. Het namiddag-zwem van de reis.</div>
+              <div class="tags"><span class="tag tag-atlantic">Strand</span><span class="tag tag-ember">Zand!</span></div>
+            </div>
+          </div>
+          <div class="item-row">
+            <div class="item-time">16:30</div>
+            <div class="item-content">
+              <div class="item-title">🏔️ Ponta do Pargo</div>
+              <div class="item-desc">Westelijkste punt van Madeira, 20 min rijden van Calheta. Vuurtoren op de kliffenrand, de oceaan verdwijnt in alle richtingen. Einde-van-de-wereld-gevoel. Gratis toegang.</div>
+              <div class="tags"><span class="tag tag-ember">Must-see</span><span class="tag tag-muted">Gratis</span></div>
+            </div>
+          </div>
+          <div class="item-row">
+            <div class="item-time">18:30</div>
+            <div class="item-content">
+              <div class="item-title">🚗 Terug naar Funchal</div>
+              <div class="item-desc">1u 30m via de kustroute. Zonsondergang boven de Atlantische kust op de terugweg &mdash; stop als je een mooi punt tegenkomt.</div>
+            </div>
           </div>
         </div>
       </div>
     </div>
 
-    <div class="day-block">
-      <div class="day-header" onclick="toggleDay(this)">
-        <div class="day-num">2</div>
-        <div class="day-info">
-          <div class="day-label">Arashiyama — Bamboe + Apen + Kamogawa Odori</div>
-          <div class="day-date">6 mei</div>
-        </div>
-        <span class="day-chevron">▼</span>
+    <!-- ─── TAB: NOORD ──────────────────────────────────────── -->
+    <div id="tab-noord" class="tab-panel">
+      <div class="section-header">
+        <h2 class="section-title">🌿 Noord</h2>
+        <span class="section-sub">Dag 4 &amp; 6</span>
       </div>
-      <div class="day-items">
-        <div class="item">
-          <div class="item-time">08:00</div>
-          <div class="item-body">
-            <div class="item-name">Arashiyama Bamboebos</div>
-            <div class="item-desc">Ga vroeg voor de magie zonder selfie-sticks. 10 min lopen vanuit station Saga-Arashiyama.</div>
-            <div class="item-tags"><span class="tag tag-nature">Must-see</span></div>
+
+      <div class="tips-box">
+        <div class="tips-box-title">⚡ Tips Noord-Madeira</div>
+        <ul>
+          <li>Porto Moniz pools v&oacute;&oacute;r 10:00 &mdash; na dat tijdstip arriveren de dagtripbussen en is het gedaan</li>
+          <li>De noordkustweg rijdt 30&ndash;40% trager dan Google Maps aangeeft &mdash; smalle bochtenweg, plan extra reistijd</li>
+          <li>Pico Arie&iacute;ro hike: vertrek voor 08:30, trail naar Pico Ruivo is 7km one-way (3&ndash;4u)</li>
+          <li>Minimaal 2L water per persoon voor de Pico-hike, SPF50+ zonnebrandcrème, goede schoenen</li>
+          <li>Victor&rsquo;s Bar bij Ribeiro Frio = legendarische poncha-stop in de bergen, verplicht op de terugweg</li>
+        </ul>
+      </div>
+
+      <!-- DAG 4 -->
+      <div class="day-block" id="dag4">
+        <div class="day-header" onclick="toggleDay('dag4')">
+          <div class="day-header-left">
+            <div class="day-num">4</div>
+            <div class="day-info">
+              <div class="day-title">Porto Moniz &middot; S&atilde;o Vicente &middot; Santana</div>
+              <div class="day-date">zaterdag 8 augustus</div>
+            </div>
+          </div>
+          <div class="day-toggle">▾</div>
+        </div>
+        <div class="day-body">
+          <div class="item-row">
+            <div class="item-time">08:30</div>
+            <div class="item-content">
+              <div class="item-title">🚗 Vertrek richting noordkust</div>
+              <div class="item-desc">1u 45m naar Porto Moniz. Rij via de VR1 tunnel, dan de noordkustweg &mdash; spectaculair maar langzaam. Reken 30% meer tijd dan Maps zegt.</div>
+            </div>
+          </div>
+          <div class="item-row">
+            <div class="item-time">10:15</div>
+            <div class="item-content">
+              <div class="item-title">🌊 Porto Moniz lavapools</div>
+              <div class="item-desc">Natuurlijke pools in de lavastenen, direct aan zee. Helder zout water, golven breken eromheen. Het beste zwemmen op Madeira. G&aacute; voor de bussen arriveren.</div>
+              <div class="tags"><span class="tag tag-ember">Must-swim</span><span class="tag tag-atlantic">Lavapools</span></div>
+            </div>
+          </div>
+          <div class="item-row">
+            <div class="item-time">12:30</div>
+            <div class="item-content">
+              <div class="item-title">🍽️ Lunch S&atilde;o Vicente</div>
+              <div class="item-desc">Sfeervol dorpje 25 min rijden van Porto Moniz. Lunch bij een lokaal restaurant aan het plein. Goedkoop, goed, geen toeristenvallen.</div>
+              <div class="tags"><span class="tag tag-ember">Eten</span></div>
+            </div>
+          </div>
+          <div class="item-row">
+            <div class="item-time">14:00</div>
+            <div class="item-content">
+              <div class="item-title">🦇 Grutas de S&atilde;o Vicente (optioneel)</div>
+              <div class="item-desc">Ondergrondse lavagrot. &sim;&euro;7 pp, 30 min tour. Indrukwekkend &mdash; maar als je liever buiten blijft in het licht, skip het.</div>
+              <div class="tags"><span class="tag tag-muted">Optioneel</span><span class="tag tag-atlantic">&sim;€7 pp</span></div>
+            </div>
+          </div>
+          <div class="item-row">
+            <div class="item-time">15:30</div>
+            <div class="item-content">
+              <div class="item-title">🏘️ Santana &mdash; palheiros</div>
+              <div class="item-desc">Traditionele Madeiran driehoekige huisjes met gekleurde deuren &mdash; symbolisch voor het eiland. 30 min van S&atilde;o Vicente. Stap uit, loop rond, koffie drinken.</div>
+              <div class="tags"><span class="tag tag-ember">Cultureel</span></div>
+            </div>
+          </div>
+          <div class="item-row">
+            <div class="item-time">17:00</div>
+            <div class="item-content">
+              <div class="item-title">🥃 Victor&rsquo;s Bar &mdash; Ribeiro Frio</div>
+              <div class="item-desc">Op de terugweg richting Funchal, hoog in de bergen. Legendarische poncha-stop. Mist trekt over de heuvels. Elke serieuze Madeira-bezoeker stopt hier.</div>
+              <div class="tags"><span class="tag tag-ember">Must-do</span><span class="tag tag-muted">Poncha</span></div>
+            </div>
+          </div>
+          <div class="item-row">
+            <div class="item-time">19:00</div>
+            <div class="item-content">
+              <div class="item-title">🚗 Terug Funchal</div>
+              <div class="item-desc">45 min via de ER103. Diner naar eigen inzicht in de stad.</div>
+            </div>
           </div>
         </div>
-        <div class="item">
-          <div class="item-time">09:30</div>
-          <div class="item-body">
-            <div class="item-name">Tenryu-ji Temple & Garden</div>
-            <div class="item-desc">UNESCO-werelderfgoed direct naast het bamboebos. Prachtige tuin met uitzicht op de Arashiyama berg.</div>
-            <div class="item-tags"><span class="tag tag-culture">Cultuur</span><span class="tag tag-nature">Natuur</span></div>
+      </div>
+
+      <!-- DAG 6 -->
+      <div class="day-block" id="dag6">
+        <div class="day-header" onclick="toggleDay('dag6')">
+          <div class="day-header-left">
+            <div class="day-num">6</div>
+            <div class="day-info">
+              <div class="day-title">Pico Arie&iacute;ro &rarr; Pico Ruivo (1862m)</div>
+              <div class="day-date">maandag 10 augustus</div>
+            </div>
           </div>
+          <div class="day-toggle">▾</div>
         </div>
-        <div class="item">
-          <div class="item-time">11:00</div>
-          <div class="item-body">
-            <div class="item-name">Iwatayama Monkey Park</div>
-            <div class="item-desc">Klim 20 min omhoog voor 170 vrije Japanse makaken en panoramisch uitzicht over Kyoto.</div>
-            <div class="item-tags"><span class="tag tag-nature">Natuur</span></div>
+        <div class="day-body">
+          <div class="alert-box warn">
+            <div class="alert-title">⚠️ Voorbereiding verplicht</div>
+            <div class="alert-body">Meenemen: <strong>2L water per persoon</strong>, SPF50+ zonnebrandcrème, goede wandelschoenen met grip, energierepen. Vertrek voor 08:30 &mdash; na 09:00 wordt het warm en de parkeerplaats vol.</div>
           </div>
-        </div>
-        <div class="item">
-          <div class="item-time">13:00</div>
-          <div class="item-body">
-            <div class="item-name">🍜 Ramen/soba lunch: Arashiyama</div>
-            <div class="item-desc">Skip tofu-kaiseki (overdreven duur). Ga een zijstraat in voor een lokale ramen-tent — echte eetgelegenheden zitten altijd verderop van de toeristenstroom.</div>
-            <div class="item-tags"><span class="tag tag-food">🍜 Ramen</span></div>
+          <div class="item-row" style="margin-top:16px;">
+            <div class="item-time">07:00</div>
+            <div class="item-content">
+              <div class="item-title">🚗 Vertrek naar Pico Arie&iacute;ro</div>
+              <div class="item-desc">45 min rijden vanuit Funchal. Kronkelende bergweg omhoog naar 1818m hoogte. Auto parkeren op de grote parkeerplaats bovenaan.</div>
+            </div>
           </div>
-        </div>
-        <div class="item">
-          <div class="item-time">14:30</div>
-          <div class="item-body">
-            <div class="item-name">Hozu-rivier wandeling (skip de Sagano trein)</div>
-            <div class="item-desc">Sagano Romantic Train = ¥880 voor 25 min toeristentrein. Beter: wandel zelf langs de Hozu-rivier naar Togetsu-kyo brug. Gratis, rustiger, mooier.</div>
-            <div class="item-tags"><span class="tag tag-nature">Natuur</span></div>
+          <div class="item-row">
+            <div class="item-time">08:00</div>
+            <div class="item-content">
+              <div class="item-title">🏔️ Start hike Arie&iacute;ro &rarr; Pico Ruivo</div>
+              <div class="item-desc">7km one-way, 3&ndash;4 uur. De trail loopt over de bergkam op 1800m+ hoogte. Uitzichten over beide kustlijnen van Madeira tegelijk. Tunnels door de rots, trappen, spectaculaire paden.</div>
+              <div class="tags"><span class="tag tag-ember">Must-hike</span><span class="tag tag-muted">7km &middot; 3&ndash;4u</span></div>
+            </div>
           </div>
-        </div>
-        <div class="item">
-          <div class="item-time">16:00</div>
-          <div class="item-body">
-            <div class="item-name">Kimono Forest bij schemering</div>
-            <div class="item-desc">Lichtinstallatie bij het station — prachtig bij schemering. Traditionele winkeltjes en matcha soft-serve.</div>
-            <div class="item-tags"><span class="tag tag-culture">Cultuur</span><span class="tag tag-shop">Winkelen</span></div>
+          <div class="item-row">
+            <div class="item-time">11:30</div>
+            <div class="item-content">
+              <div class="item-title">🏆 Top Pico Ruivo &mdash; 1862m</div>
+              <div class="item-desc">Hoogste punt van Madeira. Uitzicht over wolken en oceaan. Ref&uacute;gio op de top voor koffie en bolo do caco. Neem hier je tijd &mdash; dit moment verdient het.</div>
+              <div class="tags"><span class="tag tag-ember">Hoogtepunt</span></div>
+            </div>
           </div>
-        </div>
-        <div class="item">
-          <div class="item-time">19:00</div>
-          <div class="item-body">
-            <div class="item-name">🎭 Kamogawa Odori — Pontocho Kaburenjo</div>
-            <div class="item-desc">Geisha dans van de Pontocho wijk — één van Kyoto's meest intieme en authentieke podiumkunsten. Professionele maiko en geiko dansen klassieke Kyoto-dans in een sfeervol klein theater aan de Kamogawa rivier. Loopt t/m 24 mei — jullie zitten er precies nog binnen. <strong>Reserveer vooraf via hotel concierge of direct bij het theater.</strong> Intiem, sfeervol, onvergetelijk voor de groep.</div>
-            <div class="item-tags"><span class="tag tag-culture">Must-book vooraf</span><span class="tag tag-tip">Reservering vereist</span></div>
+          <div class="item-row">
+            <div class="item-time">12:30</div>
+            <div class="item-content">
+              <div class="item-title">🚌 Terug naar Pico Arie&iacute;ro</div>
+              <div class="item-desc">Optie A: shuttlebus terug (loopt &lsquo;s middags, vraag tijden bij de ref&uacute;gio). Optie B: lopen terug (zelfde trail, 3&ndash;4u extra). Shuttlebus aanbevolen na een zware heenweg.</div>
+            </div>
+          </div>
+          <div class="item-row">
+            <div class="item-time">14:30</div>
+            <div class="item-content">
+              <div class="item-title">🏘️ Curral das Freiras</div>
+              <div class="item-desc">Vallei der Nonnen &mdash; een verborgen dorpje diep in een vulkanische caldera. Eira do Serrado uitkijkpunt ligt 20 min van Pico richting Funchal. Stop voor het uitzicht en kastanjesnacks.</div>
+              <div class="tags"><span class="tag tag-ember">Hidden gem</span></div>
+            </div>
+          </div>
+          <div class="item-row">
+            <div class="item-time">16:30</div>
+            <div class="item-content">
+              <div class="item-title">🚗 Terug Funchal &amp; rust</div>
+              <div class="item-desc">30 min naar Funchal. Diner vroeg of laat, afhankelijk van hoe de benen voelen. Jullie hebben vandaag 14km gelopen op 1800m hoogte.</div>
+            </div>
           </div>
         </div>
       </div>
     </div>
 
-    <div class="day-block">
-      <div class="day-header" onclick="toggleDay(this)">
-        <div class="day-num">3</div>
-        <div class="day-info">
-          <div class="day-label">Kinkaku-ji + Ryoan-ji + Philosopher's Path</div>
-          <div class="day-date">7 mei</div>
-        </div>
-        <span class="day-chevron">▼</span>
+    <!-- ─── TAB: OOST ───────────────────────────────────────── -->
+    <div id="tab-oost" class="tab-panel">
+      <div class="section-header">
+        <h2 class="section-title">🌋 Oost</h2>
+        <span class="section-sub">Dag 5</span>
       </div>
-      <div class="day-items">
-        <div class="item">
-          <div class="item-time">08:30</div>
-          <div class="item-body">
-            <div class="item-name">Kinkaku-ji (Gouden Paviljoen)</div>
-            <div class="item-desc">Ja, toeristisch. Ja, druk. Maar vóór 09:00 is de reflectie in het water bij ochtendlicht echt spectaculair. Ga, maak de foto, loop snel door.</div>
-            <div class="item-tags"><span class="tag tag-culture">Must-see</span></div>
+
+      <div class="tips-box">
+        <div class="tips-box-title">⚡ Tips Oost-Madeira</div>
+        <ul>
+          <li>S&atilde;o Louren&ccedil;o v&oacute;&oacute;r 09:00 &mdash; geen schaduw op het schiereiland, na 10:00 druk en bloedheet</li>
+          <li>2L water per persoon &mdash; er is nul water onderweg op de hike, geen uitzonderingen</li>
+          <li>Cani&ccedil;al = goedkopere lokale restaurants dan Funchal, verse vis direct van de vloot</li>
+          <li>Machico = het enige echt zandige strand van Madeira &mdash; goede zwemmogelijkheden</li>
+        </ul>
+      </div>
+
+      <!-- DAG 5 -->
+      <div class="day-block" id="dag5">
+        <div class="day-header" onclick="toggleDay('dag5')">
+          <div class="day-header-left">
+            <div class="day-num">5</div>
+            <div class="day-info">
+              <div class="day-title">Ponta de S&atilde;o Louren&ccedil;o &amp; Machico</div>
+              <div class="day-date">zondag 9 augustus</div>
+            </div>
           </div>
+          <div class="day-toggle">▾</div>
         </div>
-        <div class="item">
-          <div class="item-time">10:00</div>
-          <div class="item-body">
-            <div class="item-name">Ninnaji Tempel <span style="font-size:10px;color:var(--text-muted);font-weight:400">(optioneel)</span></div>
-            <div class="item-desc">500m van Kinkaku-ji, nauwelijks toeristen. Prachtige pagode, verzorgde tuin, gratis buitengebied. Het soort plek waar je een uur zit zonder dat iemand je voor de foto loopt. <em style="font-size:11px;color:var(--text-muted)">Tip: ook te combineren met Arashiyama op dag 2 — geografisch logisch op de terugweg.</em></div>
-            <div class="item-tags"><span class="tag tag-culture">Hidden gem</span><span class="tag tag-tip">Optioneel</span></div>
+        <div class="day-body">
+          <div class="alert-box warn">
+            <div class="alert-title">⚠️ Vroeg vertrekken &mdash; geen schaduw</div>
+            <div class="alert-body">Het schiereiland heeft <strong>geen schaduw</strong>. Na 10:00 is het onaangenaam heet en druk. Vertrek om 08:00 vanuit Funchal, start de hike voor 09:00.</div>
           </div>
-        </div>
-        <div class="item">
-          <div class="item-time">11:30</div>
-          <div class="item-body">
-            <div class="item-name">Ryoan-ji Zen Tuin</div>
-            <div class="item-desc">15 stenen — je kunt er nooit alle 15 tegelijk zien. Werkt pas als je er gaat zitten en stopt met tellen.</div>
-            <div class="item-tags"><span class="tag tag-culture">Cultuur</span></div>
+          <div class="item-row" style="margin-top:16px;">
+            <div class="item-time">08:00</div>
+            <div class="item-content">
+              <div class="item-title">🚗 Vertrek richting oost</div>
+              <div class="item-desc">45 min naar Ponta de S&atilde;o Louren&ccedil;o via de snelweg langs de kust. Neem 2L water pp mee vanuit de auto voor je aan de hike begint.</div>
+            </div>
           </div>
-        </div>
-        <div class="item">
-          <div class="item-time">12:00</div>
-          <div class="item-body">
-            <div class="item-name">🛍️ Shijo-Kawaramachi — Shopping</div>
-            <div class="item-desc">Kyoto's beste winkelgebied. Compact, grotendeels overdekt via de Teramachi en Shinkyogoku arcades. Onitsuka Tiger flagship op Shijo voor Japan-exclusieve modellen (kleiner assortiment dan Tokyo maar zelfde exclusieve lijnen), Zara, H&M, Adidas en Nike in OPA en LAQUE Shijo direct bij Hankyu Kawaramachi uitgang. Na Golden Week rustiger dan Tokyo — meer ruimte, kortere rijen. Neem paspoort mee voor tax-free bij ¥5.000+. Na de shopping door naar lunch bij Omen op de Philosopher's Path.</div>
-            <div class="item-tags"><span class="tag tag-shop">Winkelen</span><span class="tag tag-shop">Onitsuka Tiger</span><span class="tag tag-shop">Fashion</span></div>
+          <div class="item-row">
+            <div class="item-time">09:00</div>
+            <div class="item-content">
+              <div class="item-title">🥾 Hike Ponta de S&atilde;o Louren&ccedil;o</div>
+              <div class="item-desc">8km retour, 2&ndash;3 uur. Spectaculair schiereiland met kliffen aan beide kanten, turquoise water, dramatisch vulkanisch landschap. Een van de mooiste hikes van Madeira. Eindig bij Prainha &mdash; kleine zandbaaai voor je terugkeert.</div>
+              <div class="tags"><span class="tag tag-ember">Must-hike</span><span class="tag tag-muted">8km &middot; 2&ndash;3u</span></div>
+            </div>
           </div>
-        </div>
-        <div class="item">
-          <div class="item-time">13:00</div>
-          <div class="item-body">
-            <div class="item-name">🍜 Lunch: Omen — Philosopher's Path</div>
-            <div class="item-desc">Klassiek Kyoto udon restaurant direct aan het kanaalpad van de Philosopher's Path. Huisgemaakte dikke udon in dashi-bouillon — een Kyoto-instelling sinds 1973. Geografisch perfect: ligt op de route van Ryoan-ji naar Ginkaku-ji, geen onnodige omweg via Kyoto Station.</div>
-            <div class="item-tags"><span class="tag tag-food">🍜 Udon</span><span class="tag tag-culture">Lokaal instituut</span></div>
+          <div class="item-row">
+            <div class="item-time">12:00</div>
+            <div class="item-content">
+              <div class="item-title">🏁 Einde hike &mdash; terug naar auto</div>
+              <div class="item-desc">Afspoelen indien mogelijk, kleerwissel in de auto. Dan 5 minuten rijden naar Cani&ccedil;al voor lunch.</div>
+            </div>
           </div>
-        </div>
-        <div class="item">
-          <div class="item-time">14:30</div>
-          <div class="item-body">
-            <div class="item-name">Philosopher's Path + Ginkaku-ji</div>
-            <div class="item-desc">2km kanaalpad langs tempels en cafés. Eindig bij Ginkaku-ji (Zilveren Paviljoen) — minder druk dan Kinkaku-ji, net zo mooi.</div>
-            <div class="item-tags"><span class="tag tag-nature">Wandelen</span><span class="tag tag-culture">Must-see</span></div>
+          <div class="item-row">
+            <div class="item-time">12:30</div>
+            <div class="item-content">
+              <div class="item-title">🐟 Lunch Cani&ccedil;al</div>
+              <div class="item-desc">Vissersdorp direct naast het schiereiland. Verse vis van de lokale vloot, goedkopere prijzen dan Funchal. Bestel atum (tonijn) of espada. Mijd de toeristenrestaurants aan de havenkade.</div>
+              <div class="tags"><span class="tag tag-ember">Eten</span><span class="tag tag-muted">Goedkoop &amp; vers</span></div>
+            </div>
+          </div>
+          <div class="item-row">
+            <div class="item-time">14:30</div>
+            <div class="item-content">
+              <div class="item-title">🏖️ Machico strand &mdash; namiddag zwemmen</div>
+              <div class="item-desc">20 min rijden van Cani&ccedil;al. Echt zandig strand. Veilig zwemmen, relatief rustig op zondag in augustus. Perfect voor de ontspanning na de hike.</div>
+              <div class="tags"><span class="tag tag-atlantic">Strand</span><span class="tag tag-ember">Zand!</span></div>
+            </div>
+          </div>
+          <div class="item-row">
+            <div class="item-time">17:00</div>
+            <div class="item-content">
+              <div class="item-title">🚗 Terug Funchal</div>
+              <div class="item-desc">35 min via de snelweg. Diner in de stad &mdash; jullie hebben het verdiend.</div>
+            </div>
           </div>
         </div>
       </div>
     </div>
 
-    <div class="day-block">
-      <div class="day-header" onclick="toggleDay(this)">
-        <div class="day-num">4</div>
-        <div class="day-info">
-          <div class="day-label">🔥 Osaka dagtrip — street food hoofdstad</div>
-          <div class="day-date">8 mei</div>
-        </div>
-        <span class="day-chevron">▼</span>
+    <!-- ─── TAB: CHEAT-SHEET ─────────────────────────────────── -->
+    <div id="tab-cheat" class="tab-panel">
+      <div class="section-header">
+        <h2 class="section-title">🗣️ Portugese cheat-sheet</h2>
+        <span class="section-sub">Klinkt als het eruit ziet</span>
       </div>
-      <div class="day-items">
-        <div class="item">
-          <div class="item-time">08:15</div>
-          <div class="item-body">
-            <div class="item-name">🚃 Trein naar Osaka (15 min!)</div>
-            <div class="item-desc">Hankyu of JR lijn. Koffers blijven gewoon in het hotel — jullie slapen vannacht nog in Kyoto.</div>
-          </div>
-        </div>
-        <div class="item">
-          <div class="item-time">09:00</div>
-          <div class="item-body">
-            <div class="item-name">Dotonbori — ochtendronde</div>
-            <div class="item-desc">'s Ochtends rustig, perfect om te verkennen. De beroemde Glico Running Man is hier.</div>
-            <div class="item-tags"><span class="tag tag-culture">Must-see</span></div>
-          </div>
-        </div>
-        <div class="item">
-          <div class="item-time">10:30</div>
-          <div class="item-body">
-            <div class="item-name">🐙 Takoyaki & Okonomiyaki</div>
-            <div class="item-desc">Osaka uitvond beide. Eet bij Wanaka of Aizuya — twee van de beroemdste originele kraampjes. Dit is de beste street food dag van de hele reis.</div>
-            <div class="item-tags"><span class="tag tag-food">Must-eat</span></div>
-          </div>
-        </div>
-        <div class="item">
-          <div class="item-time">12:00</div>
-          <div class="item-body">
-            <div class="item-name">Kuromon Ichiba Market</div>
-            <div class="item-desc">180 kraampjes. Verse krab, wagyu spiesjes, sashimi, gegrilde zeevruchten. Loop en eet terwijl je loopt.</div>
-            <div class="item-tags"><span class="tag tag-food">Must-eat</span><span class="tag tag-shop">Markt</span></div>
-          </div>
-        </div>
-        <div class="item">
-          <div class="item-time">14:00</div>
-          <div class="item-body">
-            <div class="item-name">Osaka Castle</div>
-            <div class="item-desc">Gratis parkgebied. Kasteel van buiten en de kasteelgracht zijn al de moeite waard — binnendeel is optioneel.</div>
-            <div class="item-tags"><span class="tag tag-culture">Cultuur</span><span class="tag tag-nature">Wandelen</span></div>
-          </div>
-        </div>
-        <div class="item">
-          <div class="item-time">16:00</div>
-          <div class="item-body">
-            <div class="item-name">Shinsaibashi & Amerika-Mura</div>
-            <div class="item-desc">Osaka's beste winkelgebied. Amerika-Mura = vintage, sneakers, underground fashion. Groter en wilder dan Shimokitazawa.</div>
-            <div class="item-tags"><span class="tag tag-shop">Winkelen</span></div>
-          </div>
-        </div>
-        <div class="item">
-          <div class="item-time">18:30</div>
-          <div class="item-body">
-            <div class="item-name">🍜 Dotonbori avond + Kinryu Ramen</div>
-            <div class="item-desc">Neonlichten aan — explosie van licht en geur. Street food rondje: krab op stokje, gyoza, kushikatsu. Dan Kinryu Ramen (restaurant met draak op het dak, direct op Dotonbori) — Osaka kotteri stijl, open tot 05:00.</div>
-            <div class="item-tags"><span class="tag tag-food">🍜 Ramen</span><span class="tag tag-culture">Must-see</span></div>
-          </div>
-        </div>
-        <div class="item luggage-item">
-          <div class="item-time">Na thuiskomst</div>
-          <div class="item-body">
-            <div class="item-name">🧳 Koffers versturen naar Tokyo Gotanda</div>
-            <div class="item-desc">Direct koffers inpakken en vanavond naar conbini. Bestemming: Mitsui Garden Hotel Gotanda. Bezorgdag: 9 mei. Morgen handbagage op de Nozomi — Fuji view ongestoord genieten.</div>
-            <div class="item-tags"><span class="tag tag-tip">🧳 Takkyubin</span></div>
-          </div>
-        </div>
-      </div>
-    </div>
 
-    <div class="day-block">
-      <div class="day-header" onclick="toggleDay(this)">
-        <div class="day-num">5</div>
-        <div class="day-info">
-          <div class="day-label">🗻 Vertrekochtend → Tokyo</div>
-          <div class="day-date">9 mei</div>
-        </div>
-        <span class="day-chevron">▼</span>
-      </div>
-      <div class="day-items">
-        <div class="item">
-          <div class="item-time">07:30</div>
-          <div class="item-body">
-            <div class="item-name">⚠️ Uitchecken — koffers zijn al weg</div>
-            <div class="item-desc">Koffers zijn gisteren al verstuurd. Uitchecken om ~08:30 met alleen handbagage naar Kyoto Station (5 min lopen).</div>
-            <div class="item-tags"><span class="tag tag-warn">Let op</span></div>
-          </div>
-        </div>
-        <div class="item">
-          <div class="item-time">08:30</div>
-          <div class="item-body">
-            <div class="item-name">🍜 Laatste Kyoto ramen — Kyoto Ramen Koji</div>
-            <div class="item-desc">Japanners eten ramen ook 's ochtends. B1 Kyoto Station — perfecte plek voor een laatste kom voor de trein.</div>
-            <div class="item-tags"><span class="tag tag-food">🍜 Ramen</span></div>
-          </div>
-        </div>
-        <div class="item">
-          <div class="item-time">09:54</div>
-          <div class="item-body">
-            <div class="item-name">🚄 Nozomi 344 → Shinagawa 11:58</div>
-            <div class="item-desc">Zit aan de <strong>linkerkant</strong> in de Green Car voor de Mount Fuji view 🗻. Dit is de mooiste treinrit van de hele reis.</div>
-          </div>
-        </div>
-      </div>
-    </div>
-
-  </div>
-</div>
-
-<!-- ══════════ TOKYO II ══════════ -->
-<div class="panel" id="tokyo2">
-  <div class="city-banner">
-    <div class="city-banner-jp">東京</div>
-    <div class="city-banner-top">
-      <div class="city-banner-icon">🛍️</div>
-      <div>
-        <h2>Tokyo — Gotanda</h2>
-        <div class="city-banner-meta">Mitsui Garden Hotel Gotanda</div>
-      </div>
-    </div>
-    <div class="city-banner-badge">9 mei – 13 mei · 4 nachten</div>
-  </div>
-
-  <div class="train-card">
-    <div class="train-row"><span class="train-badge">Nozomi 344</span> Kyoto <span class="train-time">09:54</span> <span class="train-arrow">→</span> Shinagawa <span class="train-time">11:58</span> · 🗻 Fuji view links! · Green Car 🟢</div>
-  </div>
-
-  <div class="tips-box">
-    <div class="tips-box-title">✦ Tips Tokyo II — Shopping focus</div>
-    <ul>
-      <li>👟 <strong>Onitsuka Tiger flagship</strong>: Minami-Aoyama (Omotesando) — Japan-exclusieve modellen, ga vroeg</li>
-      <li>💊 <strong>Drogisterij must-buys</strong>: Hada Labo · Anessa sunscreen · DHC lip cream · Salonpas · Rohto oogdruppels — bij Matsumoto Kiyoshi (gele winkels, overal)</li>
-      <li>💡 Tax-free bij ¥5.000+ aankopen — laat paspoort zien aan kassa: "men-zei de-ki-mas-ka?"</li>
-      <li>🏬 <strong>Nakameguro</strong>: 10 min van Gotanda — Japans design, kanaalsfeer, geen toeristen</li>
-      <li>⚡ <strong>Elektronica</strong>: Yodobashi Akihabara (8 verdiepingen) of Bic Camera Yurakucho (naast Ginza) — tax-free bij ¥5.000+</li>
-      <li>🧾 <strong>Tax-free tip</strong>: Paspoort altijd mee — geldt bij elke aankoop boven ¥5.000 in dezelfde winkel op dezelfde dag</li>
-    </ul>
-  </div>
-
-  <div class="days">
-
-    <div class="day-block open">
-      <div class="day-header" onclick="toggleDay(this)">
-        <div class="day-num">1</div>
-        <div class="day-info">
-          <div class="day-label">Aankomst + Harajuku + Omotesando</div>
-          <div class="day-date">9 mei</div>
-        </div>
-        <span class="day-chevron">▼</span>
-      </div>
-      <div class="day-items">
-        <div class="item">
-          <div class="item-time">11:58</div>
-          <div class="item-body">
-            <div class="item-name">🚄 Aankomst Shinagawa — bagage stallen</div>
-            <div class="item-desc">Hotel 5 min van Shinagawa. Koffers liggen al te wachten bij receptie (verstuurd gisteren). Inchecken pas om 15:00.</div>
-          </div>
-        </div>
-        <div class="item">
-          <div class="item-time">12:30</div>
-          <div class="item-body">
-            <div class="item-name">🍜 Ramen lunch — Gotanda locals</div>
-            <div class="item-desc">Gotanda is een woonwijk — geen toeristische buurt. Kwaliteit hoog, prijzen laag. Zoek op Google Maps "ラーメン" in de buurt.</div>
-            <div class="item-tags"><span class="tag tag-food">🍜 Ramen</span></div>
-          </div>
-        </div>
-        <div class="item">
-          <div class="item-time">13:30</div>
-          <div class="item-body">
-            <div class="item-name">Takeshita Street — Harajuku</div>
-            <div class="item-desc">Tokyo's wildste straat. Kooky fashion, crepes, kawaii cultuur.</div>
-            <div class="item-tags"><span class="tag tag-shop">Street fashion</span></div>
-          </div>
-        </div>
-        <div class="item">
-          <div class="item-time">15:00</div>
-          <div class="item-body">
-            <div class="item-name">Meiji Shrine</div>
-            <div class="item-desc">Rustig Shinto heiligdom midden in het groen. Perfecte tegenstelling met de chaos van Harajuku ernaast.</div>
-            <div class="item-tags"><span class="tag tag-culture">Cultuur</span><span class="tag tag-nature">Natuur</span></div>
-          </div>
-        </div>
-        <div class="item">
-          <div class="item-time">16:30</div>
-          <div class="item-body">
-            <div class="item-name">Omotesando</div>
-            <div class="item-desc">Omotesando voor luxury merken en Japanse labels.</div>
-            <div class="item-tags"><span class="tag tag-shop">Luxury</span></div>
-          </div>
-        </div>
-        <div class="item">
-          <div class="item-time">17:30</div>
-          <div class="item-body">
-            <div class="item-name">✅ Inchecken Gotanda</div>
-            <div class="item-desc">Koffers uitpakken, douche. Klaar voor 4 nachten Tokyo.</div>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <div class="day-block">
-      <div class="day-header" onclick="toggleDay(this)">
-        <div class="day-num">2</div>
-        <div class="day-info">
-          <div class="day-label">Shimokitazawa vintage + Shinjuku</div>
-          <div class="day-date">10 mei</div>
-        </div>
-        <span class="day-chevron">▼</span>
-      </div>
-      <div class="day-items">
-        <div class="item">
-          <div class="item-time">10:00</div>
-          <div class="item-body">
-            <div class="item-name">Shimokitazawa — Vintage Paradijs</div>
-            <div class="item-desc">Tokyo's hippste buurt. Tientallen vintage winkels, record shops, indie cafés. Plan 3–4 uur. Concrete winkels: <strong>Chicago Vintage</strong> en <strong>Flamingo</strong> voor de beste vintage selectie. <strong>Ragtag</strong> voor designer resale. <strong>Beams Japan</strong> op de terugweg richting Shinjuku voor één verdieping puur Japanse makers — van aardewerk tot kleding, betere kwaliteitsselectie dan DONKI voor cadeaus.</div>
-            <div class="item-tags"><span class="tag tag-shop">Vintage</span></div>
-          </div>
-        </div>
-        <div class="item">
-          <div class="item-time">13:00</div>
-          <div class="item-body">
-            <div class="item-name">🍜 Ramen lunch: Shimokitazawa locals</div>
-            <div class="item-desc">Zoek op Google Maps "ラーメン" in de wijk — plekken zonder Engelse beschrijving zijn vaak de beste. Anti-toeristen ramen ervaring.</div>
-            <div class="item-tags"><span class="tag tag-food">🍜 Ramen</span></div>
-          </div>
-        </div>
-        <div class="item">
-          <div class="item-time">15:00</div>
-          <div class="item-body">
-            <div class="item-name">Shinjuku — Don Quijote</div>
-            <div class="item-desc">DONKI: 6 verdiepingen chaos met alles wat je kan bedenken. Open 24 uur. Eerste verkenning voor de grote shopping dag later.</div>
-            <div class="item-tags"><span class="tag tag-shop">Must-visit</span></div>
-          </div>
-        </div>
-        <div class="item">
-          <div class="item-time">18:00</div>
-          <div class="item-body">
-            <div class="item-name">Tokyo Metropolitan Government Building</div>
-            <div class="item-desc">Gratis uitzichtplatform op 202m. Op heldere dag zicht op Fuji. 's Avonds spectaculair. Geen entree — geen gedoe.</div>
-            <div class="item-tags"><span class="tag tag-nature">Uitzicht · Gratis</span></div>
-          </div>
-        </div>
-        <div class="item">
-          <div class="item-time">19:30</div>
-          <div class="item-body">
-            <div class="item-name">🍜 Nakiryu — Michelin tantanmen</div>
-            <div class="item-desc">Otsuka, 15 min van Shimokitazawa. Michelin-ster tantanmen met sesamrijke bouillon. Ga bij opening of direct na 19:00. Wachtrij max 30 min. Daarna Omoide Yokocho optioneel als afsluiter.</div>
-            <div class="item-tags"><span class="tag tag-food">🍜 Ramen</span><span class="tag tag-culture">Michelin ⭐</span></div>
-          </div>
-        </div>
-        <div class="item">
-          <div class="item-time">21:30</div>
-          <div class="item-body">
-            <div class="item-name">🍢 Omoide Yokocho (optioneel)</div>
-            <div class="item-desc">"Memory Lane" — smal steegje vol tiny yakitori kraampjes. Rook, geur, lawaai. Iconisch Tokyo-moment.</div>
-            <div class="item-tags"><span class="tag tag-food">Must-eat</span></div>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <div class="day-block">
-      <div class="day-header" onclick="toggleDay(this)">
-        <div class="day-num">3</div>
-        <div class="day-info">
-          <div class="day-label">Toyosu + Tsukiji + Ginza</div>
-          <div class="day-date">11 mei</div>
-        </div>
-        <span class="day-chevron">▼</span>
-      </div>
-      <div class="day-items">
-        <div class="item">
-          <div class="item-time">10:00</div>
-          <div class="item-body">
-            <div class="item-name">🐟 Toyosu Fish Market</div>
-            <div class="item-desc">Kijk neer op de tonijnveilinghal vanuit een glazen galerij. Gratis, spectaculair. Daarna verse sushi in het marktgebouw. Loopafstand van Tsukiji.</div>
-            <div class="item-tags"><span class="tag tag-food">Must-see</span><span class="tag tag-nature">Gratis</span></div>
-          </div>
-        </div>
-        <div class="item">
-          <div class="item-time">13:00</div>
-          <div class="item-body">
-            <div class="item-name">🦪 Street food lunch: Tsukiji Outer Market</div>
-            <div class="item-desc">Tokyo's beste street food bestemming. Vers sushi, gegrilde scallops, tamagoyaki, tuna op rijst. Geen tafels — eten terwijl je loopt.</div>
-            <div class="item-tags"><span class="tag tag-food">Must-eat</span></div>
-          </div>
-        </div>
-        <div class="item">
-          <div class="item-time">14:30</div>
-          <div class="item-body">
-            <div class="item-name">⚡ Yodobashi Camera of Bic Camera Yurakucho — Elektronica</div>
-            <div class="item-desc">Yodobashi Akihabara = 8 verdiepingen, grootste elektrowinkel van Japan. Bic Camera Yurakucho = compacter, direct naast Ginza. Kies één van beide. Camera's, audio, Sony/Panasonic/Canon Japan-exclusieve modellen. Goedkoper dan Nederland voor Japanse merken. Tax-free bij ¥5.000+, paspoort verplicht. Daarna direct doorlopen naar Ginza.</div>
-            <div class="item-tags"><span class="tag tag-shop">Elektronica</span><span class="tag tag-tip">Tax-free</span></div>
-          </div>
-        </div>
-        <div class="item">
-          <div class="item-time">15:00</div>
-          <div class="item-body">
-            <div class="item-name">Ginza — Luxury District</div>
-            <div class="item-desc">Uniqlo flagship (12 verdiepingen!), Muji headquarters, Apple Store, alle grote fashion houses.</div>
-            <div class="item-tags"><span class="tag tag-shop">Luxury</span></div>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <div class="day-block">
-      <div class="day-header" onclick="toggleDay(this)">
-        <div class="day-num">4</div>
-        <div class="day-info">
-          <div class="day-label">👟 Onitsuka + Kleding + Drogisterij</div>
-          <div class="day-date">12 mei</div>
-        </div>
-        <span class="day-chevron">▼</span>
-      </div>
-      <div class="day-items">
-        <div class="item">
-          <div class="item-time">09:30</div>
-          <div class="item-body">
-            <div class="item-name">👟 Onitsuka Tiger Flagship — Minami-Aoyama</div>
-            <div class="item-desc">Grootste Onitsuka Tiger flagship van Japan in Minami-Aoyama. Japan-only modellen die thuis niet verkrijgbaar zijn — grotere selectie dan Kyoto Shijo. Ga vroeg voor beste keuze. Bovenverdieping heeft premium en limited editions. Neem paspoort mee voor tax-free.</div>
-            <div class="item-tags"><span class="tag tag-shop">Sneakers</span></div>
-          </div>
-        </div>
-        <div class="item">
-          <div class="item-time">11:00</div>
-          <div class="item-body">
-            <div class="item-name">Omotesando & Cat Street — Kleding</div>
-            <div class="item-desc">A Bathing Ape, Comme des Garçons, Kenzo, Issey Miyake. Cat Street (zijstraat) voor kleinere Japanse labels en streetwear.</div>
-            <div class="item-tags"><span class="tag tag-shop">Kleding</span></div>
-          </div>
-        </div>
-        <div class="item">
-          <div class="item-time">13:00</div>
-          <div class="item-body">
-            <div class="item-name">🍜 Snelle ramen lunch + ga door</div>
-            <div class="item-desc">Dit is een shopping dag. Gyudon bij Yoshinoya of Sukiya: snel, lekker, goedkoop.</div>
-            <div class="item-tags"><span class="tag tag-food">🍜 Ramen</span></div>
-          </div>
-        </div>
-        <div class="item">
-          <div class="item-time">13:30</div>
-          <div class="item-body">
-            <div class="item-name">🏬 Nakameguro — Japans Design</div>
-            <div class="item-desc">10 minuten van Gotanda. Strakke volwassen Japanse merken: Descente Blanc, Comoli, Beams Japan. Andere sfeer dan Harajuku — kwaliteit boven hype. Loopafstand langs het kanaal. Combineer met koffiestop bij een van de kanaalcafés.</div>
-            <div class="item-tags"><span class="tag tag-shop">Winkelen</span><span class="tag tag-shop">Japans design</span></div>
-          </div>
-        </div>
-        <div class="item">
-          <div class="item-time">14:00</div>
-          <div class="item-body">
-            <div class="item-name">💊 Matsumoto Kiyoshi — Drogisterij ronde</div>
-            <div class="item-desc">Gele winkels overal. Must-buys: SK-II · Hada Labo · Anessa sunscreen · DHC lip cream · Salonpas · Rohto oogdruppels · collageen dranken. Check ook Welcia en Sundrug. Neem een lege koffer mee — serieus.</div>
-            <div class="item-tags"><span class="tag tag-shop">Drogisterij</span></div>
-          </div>
-        </div>
-        <div class="item">
-          <div class="item-time">16:00</div>
-          <div class="item-body">
-            <div class="item-name">Shibuya 109 + Scramble Square</div>
-            <div class="item-desc">Shibuya 109 = Japanse fashion labels. Laatste kans voor kleding en schoenen.</div>
-            <div class="item-tags"><span class="tag tag-shop">Kleding</span></div>
-          </div>
-        </div>
-        <div class="item">
-          <div class="item-time">18:00</div>
-          <div class="item-body">
-            <div class="item-name">DONKI — laatste ronde</div>
-            <div class="item-desc">Cosmetics, snacks voor thuis, last-minute cadeaus. Open tot 05:00 — geen haast.</div>
-            <div class="item-tags"><span class="tag tag-shop">Must-visit</span></div>
-          </div>
-        </div>
-        <div class="item">
-          <div class="item-time">20:00</div>
-          <div class="item-body">
-            <div class="item-name">🥩 Afscheidsdiner: Wagyu Yakiniku</div>
-            <div class="item-desc">Definitieve afsluiter van Japan 2026. <strong>Gyuugaku</strong> (meerdere locaties Shinjuku en Shibuya, reserveer een dag vooruit) voor toegankelijke premium yakiniku. Of voor het ultieme afscheidsdiner: <strong>Aragawa</strong> in Ginza (reserveer minimaal een week vooruit, jacket required). Kampai 🍻</div>
-            <div class="item-tags"><span class="tag tag-food">Must-eat</span><span class="tag tag-tip">Reservering vereist</span></div>
-          </div>
-        </div>
-        <div class="item luggage-item">
-          <div class="item-time">Na diner</div>
-          <div class="item-body">
-            <div class="item-name">🧳 Koffers naar Narita Airport</div>
-            <div class="item-desc">Stuur koffers naar <strong>Narita Airport Terminal</strong> (check jullie terminal op vluchtnummer). Bezorgdag: 13 mei. Morgen reizen jullie met alleen handbagage. ~¥2.000–2.500 per koffer.</div>
-            <div class="item-tags"><span class="tag tag-tip">🧳 Takkyubin → Narita</span></div>
-          </div>
-        </div>
-      </div>
-    </div>
-
-  </div>
-
-  <div style="padding: 0 16px 8px">
-    <div class="emergency-box">
-      <h4>✈️ Vertrek 13 mei</h4>
-      <p>
-        <strong>07:00</strong> Vertrek hotel Gotanda →
-        <strong>07:10</strong> NEX vanaf Shinagawa →
-        <strong>08:30</strong> Aankomst Narita →
-        <strong>09:00</strong> Internationale check-in sluit (vlucht 11:00).
-        Koffers liggen al klaar op het airport!
+      <p class="cheat-intro">
+        Uitspraakgids: <strong style="color:var(--text)">a</strong> = &ldquo;ah&rdquo; &middot; <strong style="color:var(--text)">e</strong> aan het einde van woorden is stil &middot; <strong style="color:var(--text)">lh</strong> = &ldquo;lj&rdquo; &middot; <strong style="color:var(--text)">nh</strong> = &ldquo;nj&rdquo; &middot; <strong style="color:var(--text)">&atilde;/&atilde;o</strong> = nasale &ldquo;oun&rdquo; &middot; <strong style="color:var(--text)">ch</strong> = &ldquo;sj&rdquo;. Glimlach altijd erbij &mdash; Madeiranen waarderen elke poging.
       </p>
-    </div>
-    <div class="item-tags" style="padding: 8px 0 0"><span class="tag tag-warn">Let op: internationale check-in sluit 09:00</span></div>
-  </div>
-</div>
 
-<!-- ══════════ CHEAT-SHEET ══════════ -->
-<div class="panel" id="cheatsheet">
-  <div class="city-banner">
-    <div class="city-banner-jp">言葉</div>
-    <div class="city-banner-top">
-      <div class="city-banner-icon">🗣️</div>
-      <div>
-        <h2>Japanse Cheat-sheet</h2>
-        <div class="city-banner-meta">Uitgesproken zoals het klinkt</div>
+      <!-- GETALLEN -->
+      <div class="cheat-section">
+        <div class="cheat-section-title">🔢 Getallen</div>
+        <div class="number-grid">
+          <div class="number-card"><div class="number-pt">um / uma</div><div class="number-pron">oun / oo-mah</div><div class="number-nl">1</div></div>
+          <div class="number-card"><div class="number-pt">dois / duas</div><div class="number-pron">doish / doo-ash</div><div class="number-nl">2</div></div>
+          <div class="number-card"><div class="number-pt">tr&ecirc;s</div><div class="number-pron">tresh</div><div class="number-nl">3</div></div>
+          <div class="number-card"><div class="number-pt">quatro</div><div class="number-pron">kwah-troo</div><div class="number-nl">4</div></div>
+          <div class="number-card"><div class="number-pt">cinco</div><div class="number-pron">seen-koo</div><div class="number-nl">5</div></div>
+          <div class="number-card"><div class="number-pt">seis</div><div class="number-pron">saysh</div><div class="number-nl">6</div></div>
+          <div class="number-card"><div class="number-pt">sete</div><div class="number-pron">set</div><div class="number-nl">7</div></div>
+          <div class="number-card"><div class="number-pt">oito</div><div class="number-pron">oy-too</div><div class="number-nl">8</div></div>
+          <div class="number-card"><div class="number-pt">nove</div><div class="number-pron">nawv</div><div class="number-nl">9</div></div>
+          <div class="number-card"><div class="number-pt">dez</div><div class="number-pron">dezj</div><div class="number-nl">10</div></div>
+        </div>
+        <div style="font-size:12px;color:var(--muted);margin-top:6px;">💡 Vingers werken ook &mdash; wijs erop en zeg het getal. Altijd begrepen.</div>
+      </div>
+
+      <!-- BASICS -->
+      <div class="cheat-section">
+        <div class="cheat-section-title">🙏 Basics &amp; beleefdheid</div>
+        <table class="cheat-table">
+          <thead><tr><th>Portugees</th><th>Uitspraak</th><th>Betekenis</th></tr></thead>
+          <tbody>
+            <tr><td class="word">Obrigado / Obrigada</td><td class="pron">ob-ree-gah-doo / -dah</td><td class="meaning">Dankjewel (man / vrouw spreekt)</td></tr>
+            <tr><td class="word">Desculpe</td><td class="pron">desh-kool-p</td><td class="meaning">Excuseer mij / sorry</td></tr>
+            <tr><td class="word">Bom dia</td><td class="pron">bown dee-ah</td><td class="meaning">Goedemorgen</td></tr>
+            <tr><td class="word">Boa tarde</td><td class="pron">boh-ah tar-d</td><td class="meaning">Goedemiddag</td></tr>
+            <tr><td class="word">Boa noite</td><td class="pron">boh-ah noy-t</td><td class="meaning">Goedenavond / welterusten</td></tr>
+            <tr><td class="word">Sim / N&atilde;o</td><td class="pron">seeng / nown</td><td class="meaning">Ja / Nee</td></tr>
+            <tr><td class="word">Por favor</td><td class="pron">poor fah-vor</td><td class="meaning">Alstublieft</td></tr>
+            <tr><td class="word">N&atilde;o percebo</td><td class="pron">nown per-say-boo</td><td class="meaning">Ik begrijp het niet</td></tr>
+            <tr><td class="word">Fala ingl&ecirc;s?</td><td class="pron">fah-lah een-glesh</td><td class="meaning">Spreekt u Engels?</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <!-- RESTAURANT -->
+      <div class="cheat-section">
+        <div class="cheat-section-title">🍽️ Restaurant &amp; eten</div>
+        <table class="cheat-table">
+          <thead><tr><th>Portugees</th><th>Uitspraak</th><th>Betekenis</th></tr></thead>
+          <tbody>
+            <tr><td class="word">Para tr&ecirc;s pessoas</td><td class="pron">pah-rah tresh pe-soh-ash</td><td class="meaning">Voor drie personen</td></tr>
+            <tr><td class="word">Uma mesa, por favor</td><td class="pron">oo-mah may-zah poor fah-vor</td><td class="meaning">Een tafel graag</td></tr>
+            <tr><td class="word">O que recomenda?</td><td class="pron">oo ke re-koo-men-dah</td><td class="meaning">Wat is uw aanbeveling?</td></tr>
+            <tr><td class="word">Isto, por favor</td><td class="pron">eesh-too poor fah-vor</td><td class="meaning">Dit graag (wijs op menu)</td></tr>
+            <tr><td class="word">Est&aacute; delicioso!</td><td class="pron">esh-tah deh-lee-see-oh-zoo</td><td class="meaning">Dit is heerlijk!</td></tr>
+            <tr><td class="word">A conta, por favor</td><td class="pron">ah kon-tah poor fah-vor</td><td class="meaning">De rekening graag</td></tr>
+            <tr><td class="word">Pode pagar com cart&atilde;o?</td><td class="pron">pawt pah-gar kown kar-town</td><td class="meaning">Kan ik met kaart betalen?</td></tr>
+            <tr><td class="word">Sem carne</td><td class="pron">seng kar-n</td><td class="meaning">Zonder vlees</td></tr>
+          </tbody>
+        </table>
+        <div class="specials-pill">
+          🥩 <strong>Madeiran specialiteiten:</strong> <span>Espetada (vlees op laurierhouten stokje) &middot; Espada (zwarte degenvis) &middot; Bolo do caco (zoet aardappelbrood met knoflookboter) &middot; Poncha (aguardente + honing + citroen) &middot; Atum (tonijn) &middot; Coral Especial (lokaal bier)</span>
+        </div>
+      </div>
+
+      <!-- STRAND & SURFEN -->
+      <div class="cheat-section">
+        <div class="cheat-section-title">🏄 Strand &amp; surfen</div>
+        <table class="cheat-table">
+          <thead><tr><th>Portugees</th><th>Uitspraak</th><th>Betekenis</th></tr></thead>
+          <tbody>
+            <tr><td class="word">Onde fica a praia?</td><td class="pron">on-d fee-kah ah pry-ah</td><td class="meaning">Waar is het strand?</td></tr>
+            <tr><td class="word">Pode nadar aqui?</td><td class="pron">pawt nah-dar ah-kee</td><td class="meaning">Kan je hier zwemmen?</td></tr>
+            <tr><td class="word">H&aacute; aula de surf?</td><td class="pron">ah aw-lah d soorf</td><td class="meaning">Is er surfles?</td></tr>
+            <tr><td class="word">Pode alugar uma prancha?</td><td class="pron">pawt ah-loo-gar oo-mah pran-sjah</td><td class="meaning">Kan ik een board huren?</td></tr>
+            <tr><td class="word">As ondas est&atilde;o boas?</td><td class="pron">ash on-dash esh-town boh-ash</td><td class="meaning">Zijn de golven goed?</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <!-- WANDELEN & RIJDEN -->
+      <div class="cheat-section">
+        <div class="cheat-section-title">🥾 Wandelen &amp; rijden</div>
+        <table class="cheat-table">
+          <thead><tr><th>Portugees</th><th>Uitspraak</th><th>Betekenis</th></tr></thead>
+          <tbody>
+            <tr><td class="word">Onde fica a trilha?</td><td class="pron">on-d fee-kah ah tree-lyah</td><td class="meaning">Waar is het wandelpad?</td></tr>
+            <tr><td class="word">Quantos quil&ocirc;metros?</td><td class="pron">kwan-toosh kee-loh-meh-troosh</td><td class="meaning">Hoeveel kilometer?</td></tr>
+            <tr><td class="word">&Eacute; dif&iacute;cil?</td><td class="pron">eh dee-fee-seel</td><td class="meaning">Is het moeilijk?</td></tr>
+            <tr><td class="word">Onde fica o estacionamento?</td><td class="pron">on-d fee-kah oo esh-tah-see-oh-nah-men-too</td><td class="meaning">Waar is de parkeerplaats?</td></tr>
+            <tr><td class="word">Como vou para...?</td><td class="pron">koh-moo voh pah-rah</td><td class="meaning">Hoe kom ik bij...?</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <!-- NOODGEVALLEN -->
+      <div class="cheat-section">
+        <div class="cheat-section-title">🚨 Noodgevallen</div>
+        <table class="cheat-table">
+          <thead><tr><th>Portugees</th><th>Uitspraak</th><th>Betekenis</th></tr></thead>
+          <tbody>
+            <tr><td class="word">Ajuda!</td><td class="pron">ah-zjoo-dah</td><td class="meaning">Help!</td></tr>
+            <tr><td class="word">Chame a pol&iacute;cia!</td><td class="pron">sjah-m ah poo-lee-see-ah</td><td class="meaning">Bel de politie!</td></tr>
+            <tr><td class="word">Chame uma ambu&acirc;ncia!</td><td class="pron">sjah-m oo-mah am-boo-lan-see-ah</td><td class="meaning">Bel een ambulance!</td></tr>
+            <tr><td class="word">Onde &eacute; o hospital?</td><td class="pron">on-d eh oo osh-pee-tahl</td><td class="meaning">Waar is het ziekenhuis?</td></tr>
+            <tr><td class="word">Fui roubado/a</td><td class="pron">foo-ee roh-bah-doo / -dah</td><td class="meaning">Ik ben beroofd</td></tr>
+            <tr><td class="word">Perdi o meu passaporte</td><td class="pron">per-dee oo may-oo pah-sah-port</td><td class="meaning">Ik ben mijn paspoort kwijt</td></tr>
+          </tbody>
+        </table>
+        <div style="background:rgba(200,120,69,.08);border:1px solid rgba(200,120,69,.2);border-radius:8px;padding:12px 16px;margin-top:12px;font-size:13px;line-height:1.65;">
+          🆘 <strong style="color:var(--ember)">Noodnummer Portugal: 112</strong> &middot; <span style="color:var(--text)">Hospital Dr. N&eacute;lio Mendon&ccedil;a: <strong>+351 291 705 600</strong></span>
+        </div>
+      </div>
+
+      <!-- COMPLIMENTEN -->
+      <div class="cheat-section">
+        <div class="cheat-section-title">✨ Complimenten &amp; afsluiting</div>
+        <table class="cheat-table">
+          <thead><tr><th>Portugees</th><th>Uitspraak</th><th>Betekenis</th></tr></thead>
+          <tbody>
+            <tr><td class="word">Que lindo!</td><td class="pron">k leen-doo</td><td class="meaning">Wat mooi!</td></tr>
+            <tr><td class="word">Foi excelente!</td><td class="pron">foy ex-se-len-t</td><td class="meaning">Het was uitstekend!</td></tr>
+            <tr><td class="word">Gosto muito da Madeira</td><td class="pron">gosh-too mwee-too dah mah-day-rah</td><td class="meaning">Ik hou van Madeira</td></tr>
+            <tr><td class="word">At&eacute; logo</td><td class="pron">ah-teh loh-goo</td><td class="meaning">Tot ziens</td></tr>
+            <tr><td class="word">Obrigado por tudo</td><td class="pron">ob-ree-gah-doo poor too-doo</td><td class="meaning">Bedankt voor alles</td></tr>
+            <tr><td class="word">Posso tirar uma foto?</td><td class="pron">poh-soo tee-rar oo-mah foh-too</td><td class="meaning">Mag ik een foto maken?</td></tr>
+          </tbody>
+        </table>
       </div>
     </div>
-    <div class="city-banner-badge">Rana, Lalla, Jhilani & Rouzbeh</div>
-  </div>
 
-  <div style="padding: 0 16px 12px">
-    <div class="tips-box">
-      <div class="tips-box-title">📖 Uitspraakgids</div>
-      <ul>
-        <li>a = "ah" · i = "ie" · u = "oe" · e = "eh" · o = "oh"</li>
-        <li>Dubbele klinker (aa/oo) = lang aanhouden</li>
-        <li><strong>Glimlach altijd erbij</strong> — Japanners waarderen elke poging enorm</li>
-      </ul>
-    </div>
-  </div>
+  </div><!-- /content -->
 
-  <!-- GETALLEN -->
-  <div class="cs-section">
-    <h3>🔢 Getallen</h3>
-    <div class="num-grid">
-      <div class="num-card"><div class="num-jp">一</div><div class="num-ro">ichi</div><div class="num-nl">1</div></div>
-      <div class="num-card"><div class="num-jp">二</div><div class="num-ro">ni</div><div class="num-nl">2</div></div>
-      <div class="num-card"><div class="num-jp">三</div><div class="num-ro">san</div><div class="num-nl">3</div></div>
-      <div class="num-card"><div class="num-jp">四</div><div class="num-ro">yon</div><div class="num-nl">4</div></div>
-      <div class="num-card"><div class="num-jp">五</div><div class="num-ro">go</div><div class="num-nl">5</div></div>
-      <div class="num-card"><div class="num-jp">六</div><div class="num-ro">roku</div><div class="num-nl">6</div></div>
-      <div class="num-card"><div class="num-jp">七</div><div class="num-ro">nana</div><div class="num-nl">7</div></div>
-      <div class="num-card"><div class="num-jp">八</div><div class="num-ro">hachi</div><div class="num-nl">8</div></div>
-      <div class="num-card"><div class="num-jp">九</div><div class="num-ro">kyuu</div><div class="num-nl">9</div></div>
-      <div class="num-card"><div class="num-jp">十</div><div class="num-ro">juu</div><div class="num-nl">10</div></div>
-    </div>
-    <div class="cs-note">🤚 <strong>Vingers werken ook!</strong> Gewoon 4 vingers omhoog en "yon-nin" zeggen — ze begrijpen het altijd.</div>
-  </div>
+  <script>
+    function switchTab(tab, el) {
+      document.querySelectorAll('.tab-panel').forEach(p => p.classList.remove('active'));
+      document.querySelectorAll('.nav-tab').forEach(t => t.classList.remove('active'));
+      document.getElementById('tab-' + tab).classList.add('active');
+      el.classList.add('active');
+      el.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'center' });
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
 
-  <!-- BASICS -->
-  <div class="cs-section">
-    <h3>🙏 Basics & beleefdheid</h3>
-    <table class="cs-table">
-      <thead><tr><td class="cs-jp">Japans</td><td class="cs-ro">Uitspraak</td><td class="cs-nl">Betekenis</td></tr></thead>
-      <tr><td class="cs-jp">ありがとうございます</td><td class="cs-ro">a-ri-ga-tō go-za-i-mas</td><td class="cs-nl">Hartelijk dank (formeel)</td></tr>
-      <tr><td class="cs-jp">ありがとう</td><td class="cs-ro">a-ri-ga-tō</td><td class="cs-nl">Dankjewel (casual)</td></tr>
-      <tr><td class="cs-jp">すみません</td><td class="cs-ro">su-mi-ma-sen</td><td class="cs-nl">Excuseer mij / sorry</td></tr>
-      <tr><td class="cs-jp">はい / いいえ</td><td class="cs-ro">hai / iie</td><td class="cs-nl">Ja / Nee</td></tr>
-      <tr><td class="cs-jp">おねがいします</td><td class="cs-ro">o-ne-gai-shi-mas</td><td class="cs-nl">Alstublieft</td></tr>
-      <tr><td class="cs-jp">わかりません</td><td class="cs-ro">wa-ka-ri-ma-sen</td><td class="cs-nl">Ik begrijp het niet</td></tr>
-      <tr><td class="cs-jp">英語はわかりますか？</td><td class="cs-ro">ei-go wa wa-ka-ri-mas-ka?</td><td class="cs-nl">Spreekt u Engels?</td></tr>
-    </table>
-  </div>
-
-  <!-- RESTAURANT & RAMEN -->
-  <div class="cs-section">
-    <h3>🍜 Restaurant & Ramen</h3>
-    <table class="cs-table">
-      <thead><tr><td class="cs-jp">Japans</td><td class="cs-ro">Uitspraak</td><td class="cs-nl">Betekenis</td></tr></thead>
-      <tr><td class="cs-jp">四人です</td><td class="cs-ro">yo-nin des</td><td class="cs-nl">We zijn met 4 personen</td></tr>
-      <tr><td class="cs-jp">一つください</td><td class="cs-ro">hi-to-tsu ku-da-sai</td><td class="cs-nl">Eén graag</td></tr>
-      <tr><td class="cs-jp">二つください</td><td class="cs-ro">fu-ta-tsu ku-da-sai</td><td class="cs-nl">Twee graag</td></tr>
-      <tr><td class="cs-jp">四つください</td><td class="cs-ro">yot-tsu ku-da-sai</td><td class="cs-nl">Vier graag</td></tr>
-      <tr><td class="cs-jp">これをください</td><td class="cs-ro">ko-re o ku-da-sai</td><td class="cs-nl">Dit graag (wijs op menu)</td></tr>
-      <tr><td class="cs-jp">おすすめは何ですか？</td><td class="cs-ro">o-su-su-me wa nan des-ka?</td><td class="cs-nl">Wat is uw aanbeveling?</td></tr>
-      <tr><td class="cs-jp">替え玉ください</td><td class="cs-ro">ka-e-da-ma ku-da-sai</td><td class="cs-nl">Extra noodles graag</td></tr>
-      <tr><td class="cs-jp">豚抜きで</td><td class="cs-ro">bu-ta-nu-ki de</td><td class="cs-nl">Zonder varkensvlees</td></tr>
-      <tr><td class="cs-jp">鶏チャーシューに変えられますか？</td><td class="cs-ro">to-ri chā-shū ni ka-e-ra-re-mas-ka?</td><td class="cs-nl">Kip chashu ipv varkensvlees?</td></tr>
-      <tr><td class="cs-jp">おいしい！</td><td class="cs-ro">o-i-shii!</td><td class="cs-nl">Heerlijk! (altijd zeggen)</td></tr>
-      <tr><td class="cs-jp">お会計をお願いします</td><td class="cs-ro">o-kai-kei o o-ne-gai-shi-mas</td><td class="cs-nl">De rekening graag</td></tr>
-      <tr><td class="cs-jp">カードで払えますか？</td><td class="cs-ro">kā-do de ha-ra-e-mas-ka?</td><td class="cs-nl">Kan ik met kaart betalen?</td></tr>
-    </table>
-    <div class="cs-note">🍜 <strong>Ramen gouden regel:</strong> Zeg <em>itadakimasu</em> (i-ta-da-ki-mas) vóór je eerste hap — en <em>gochisōsama deshita</em> (go-chi-sō-sa-ma de-shi-ta) als je klaar bent. Ramenkoks leven voor dit moment.</div>
-  </div>
-
-  <!-- MARKT & STREET FOOD -->
-  <div class="cs-section">
-    <h3>🦑 Markt & Street food</h3>
-    <table class="cs-table">
-      <thead><tr><td class="cs-jp">Japans</td><td class="cs-ro">Uitspraak</td><td class="cs-nl">Betekenis</td></tr></thead>
-      <tr><td class="cs-jp">これは何ですか？</td><td class="cs-ro">ko-re wa nan des-ka?</td><td class="cs-nl">Wat is dit?</td></tr>
-      <tr><td class="cs-jp">肉は何ですか？</td><td class="cs-ro">ni-ku wa nan des-ka?</td><td class="cs-nl">Wat voor vlees is dit?</td></tr>
-      <tr><td class="cs-jp">いくらですか？</td><td class="cs-ro">i-ku-ra des-ka?</td><td class="cs-nl">Hoeveel kost het?</td></tr>
-      <tr><td class="cs-jp">試食できますか？</td><td class="cs-ro">shi-shoku de-ki-mas-ka?</td><td class="cs-nl">Mag ik proeven?</td></tr>
-      <tr><td class="cs-jp">袋をください</td><td class="cs-ro">fu-ku-ro o ku-da-sai</td><td class="cs-nl">Een tasje graag</td></tr>
-    </table>
-  </div>
-
-  <!-- WINKELEN -->
-  <div class="cs-section">
-    <h3>🛍️ Winkelen</h3>
-    <table class="cs-table">
-      <thead><tr><td class="cs-jp">Japans</td><td class="cs-ro">Uitspraak</td><td class="cs-nl">Betekenis</td></tr></thead>
-      <tr><td class="cs-jp">見ているだけです</td><td class="cs-ro">mi-te-i-ru da-ke des</td><td class="cs-nl">Ik kijk alleen maar</td></tr>
-      <tr><td class="cs-jp">試着してもいいですか？</td><td class="cs-ro">shi-chaku shi-te mo ii des-ka?</td><td class="cs-nl">Mag ik dit passen?</td></tr>
-      <tr><td class="cs-jp">もっと大きいサイズはありますか？</td><td class="cs-ro">mot-to ō-kii sai-zu wa a-ri-mas-ka?</td><td class="cs-nl">Grotere maat?</td></tr>
-      <tr><td class="cs-jp">もっと小さいサイズはありますか？</td><td class="cs-ro">mot-to chii-sai sai-zu wa a-ri-mas-ka?</td><td class="cs-nl">Kleinere maat?</td></tr>
-      <tr><td class="cs-jp">免税できますか？</td><td class="cs-ro">men-zei de-ki-mas-ka?</td><td class="cs-nl">Tax-free? (bij ¥5.000+)</td></tr>
-    </table>
-  </div>
-
-  <!-- VERVOER & HOTEL -->
-  <div class="cs-section">
-    <h3>🚄 Vervoer & Hotel</h3>
-    <table class="cs-table">
-      <thead><tr><td class="cs-jp">Japans</td><td class="cs-ro">Uitspraak</td><td class="cs-nl">Betekenis</td></tr></thead>
-      <tr><td class="cs-jp">〜まで四枚</td><td class="cs-ro">~ ma-de yo-mai</td><td class="cs-nl">Vier kaartjes naar ~</td></tr>
-      <tr><td class="cs-jp">荷物を預かってもらえますか？</td><td class="cs-ro">ni-mo-tsu o a-zu-kat-te mo-ra-e-mas-ka?</td><td class="cs-nl">Kunt u bagage bewaren?</td></tr>
-      <tr><td class="cs-jp">チェックインをお願いします</td><td class="cs-ro">chek-ku-in o o-ne-gai-shi-mas</td><td class="cs-nl">Ik wil inchecken</td></tr>
-      <tr><td class="cs-jp">この住所に行きたいです</td><td class="cs-ro">ko-no jū-sho ni i-ki-tai des</td><td class="cs-nl">Naar dit adres (toon telefoon)</td></tr>
-    </table>
-  </div>
-
-  <!-- TAKKYUBIN -->
-  <div class="cs-section">
-    <h3>🧳 Takkyubin</h3>
-    <table class="cs-table">
-      <thead><tr><td class="cs-jp">Japans</td><td class="cs-ro">Uitspraak</td><td class="cs-nl">Betekenis</td></tr></thead>
-      <tr><td class="cs-jp">宅急便をお願いします</td><td class="cs-ro">tak-kyū-bin o o-ne-gai-shi-mas</td><td class="cs-nl">Ik wil een pakket versturen</td></tr>
-      <tr><td class="cs-jp">明日届けてください</td><td class="cs-ro">a-shi-ta to-do-ke-te ku-da-sai</td><td class="cs-nl">Bezorg het morgen</td></tr>
-      <tr><td class="cs-jp">空港に送りたいです</td><td class="cs-ro">kū-kō ni o-ku-ri-tai des</td><td class="cs-nl">Naar het vliegveld sturen</td></tr>
-      <tr><td class="cs-jp">いくらですか？</td><td class="cs-ro">i-ku-ra des-ka?</td><td class="cs-nl">Hoeveel kost het?</td></tr>
-    </table>
-  </div>
-
-  <!-- NOODGEVALLEN -->
-  <div class="cs-section">
-    <h3>🚨 Noodgevallen</h3>
-    <table class="cs-table">
-      <thead><tr><td class="cs-jp">Japans</td><td class="cs-ro">Uitspraak</td><td class="cs-nl">Betekenis</td></tr></thead>
-      <tr><td class="cs-jp">助けてください！</td><td class="cs-ro">ta-su-ke-te ku-da-sai!</td><td class="cs-nl">Help mij alstublieft!</td></tr>
-      <tr><td class="cs-jp">病院はどこですか？</td><td class="cs-ro">byō-in wa do-ko des-ka?</td><td class="cs-nl">Waar is het ziekenhuis?</td></tr>
-      <tr><td class="cs-jp">救急車を呼んでください</td><td class="cs-ro">kyū-kyū-sha o yon-de ku-da-sai</td><td class="cs-nl">Bel een ambulance</td></tr>
-      <tr><td class="cs-jp">財布を盗まれました</td><td class="cs-ro">sai-fu o nu-su-ma-re-ma-shi-ta</td><td class="cs-nl">Mijn portemonnee is gestolen</td></tr>
-      <tr><td class="cs-jp">パスポートを失くしました</td><td class="cs-ro">pas-pō-to o na-ku-shi-ma-shi-ta</td><td class="cs-nl">Ik ben mijn paspoort kwijt</td></tr>
-    </table>
-    <div class="emergency-box" style="margin: 0 0 16px">
-      <h4>🆘 Noodnummers Japan</h4>
-      <p>Ambulance & brandweer: <strong>119</strong> · Politie: <strong>110</strong> · JNTO Engelse hulplijn: <strong>050-3816-2787</strong> (24/7)</p>
-    </div>
-  </div>
-
-  <!-- AFSLUITING -->
-  <div class="cs-section">
-    <h3>✨ Afsluiting & complimenten</h3>
-    <table class="cs-table">
-      <thead><tr><td class="cs-jp">Japans</td><td class="cs-ro">Uitspraak</td><td class="cs-nl">Betekenis</td></tr></thead>
-      <tr><td class="cs-jp">ごちそうさまでした</td><td class="cs-ro">go-chi-sō-sa-ma de-shi-ta</td><td class="cs-nl">Dank voor het eten (altijd zeggen!)</td></tr>
-      <tr><td class="cs-jp">最高でした！</td><td class="cs-ro">sai-kō de-shi-ta!</td><td class="cs-nl">Het was geweldig!</td></tr>
-      <tr><td class="cs-jp">また来ます</td><td class="cs-ro">ma-ta ki-mas</td><td class="cs-nl">Ik kom terug</td></tr>
-      <tr><td class="cs-jp">日本が大好きです</td><td class="cs-ro">ni-hon ga dai-su-ki des</td><td class="cs-nl">Ik hou van Japan</td></tr>
-      <tr><td class="cs-jp">写真を撮ってもいいですか？</td><td class="cs-ro">sha-shin o tot-te mo ii des-ka?</td><td class="cs-nl">Mag ik een foto maken?</td></tr>
-      <tr><td class="cs-jp">お世話になりました</td><td class="cs-ro">o-se-wa ni na-ri-ma-shi-ta</td><td class="cs-nl">Bedankt voor alles (bij uitchecken)</td></tr>
-    </table>
-  </div>
-
-  <div style="height: 24px"></div>
-</div>
-
-<!-- SCROLL TO TOP -->
-<button class="scroll-top" id="scrollBtn" onclick="window.scrollTo({top:0,behavior:'smooth'})">↑</button>
-
-<script>
-function show(id) {
-  document.querySelectorAll('.panel').forEach(p => p.classList.remove('active'));
-  document.querySelectorAll('.nav-tab').forEach(b => b.classList.remove('active'));
-  document.getElementById(id).classList.add('active');
-  event.currentTarget.classList.add('active');
-  window.scrollTo({ top: 0, behavior: 'smooth' });
-}
-
-function toggleDay(header) {
-  const block = header.parentElement;
-  block.classList.toggle('open');
-}
-
-// Scroll to top button
-window.addEventListener('scroll', () => {
-  const btn = document.getElementById('scrollBtn');
-  btn.classList.toggle('visible', window.scrollY > 300);
-});
-
-// Open first day block by default on tab switch
-document.querySelectorAll('.nav-tab').forEach(tab => {
-  tab.addEventListener('click', () => {
-    setTimeout(() => {
-      const activePanel = document.querySelector('.panel.active');
-      if (activePanel) {
-        const firstBlock = activePanel.querySelector('.day-block');
-        if (firstBlock) firstBlock.classList.add('open');
-      }
-    }, 50);
-  });
-});
-</script>
+    function toggleDay(id) {
+      document.getElementById(id).classList.toggle('open');
+    }
+  </script>
 </body>
 </html>
