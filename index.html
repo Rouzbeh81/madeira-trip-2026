@@ -4,7 +4,15 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0" />
   <title>🏝️ Madeira 2026</title>
+  <meta name="theme-color" content="#09090d" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+  <meta name="apple-mobile-web-app-title" content="Madeira" />
+  <link rel="manifest" href="/manifest.json" />
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Outfit:wght@300;400;500;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" crossorigin="" />
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" crossorigin="" defer></script>
   <style>
     /* ── tokens ──────────────────────────────────────────── */
     :root {
@@ -456,6 +464,229 @@
     .specials-pill strong { color: var(--ember); }
     .specials-pill span   { color: var(--text); }
 
+    /* ── trip status / countdown ─────────────────────────── */
+    .hero-subtitle { margin-bottom: 20px; }
+    .trip-status {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 8px;
+      margin-bottom: 38px;
+      position: relative;
+      min-height: 32px;
+    }
+    .chip {
+      display: inline-flex;
+      align-items: center;
+      gap: 7px;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 30px;
+      padding: 6px 16px;
+      font-size: 12.5px;
+      color: var(--text);
+      letter-spacing: 0.02em;
+    }
+    .chip strong { color: var(--ember); font-weight: 600; }
+    .chip.live::before {
+      content: '';
+      width: 6px; height: 6px;
+      border-radius: 50%;
+      background: var(--atlantic);
+      box-shadow: 0 0 7px var(--atlantic);
+      animation: pulse 2.4s ease-in-out infinite;
+    }
+    @keyframes pulse { 0%,100% { opacity: 1; } 50% { opacity: .35; } }
+
+    /* ── weather strip ───────────────────────────────────── */
+    .weather-strip { margin-bottom: 28px; }
+    .weather-block { margin-bottom: 16px; }
+    .weather-block:last-child { margin-bottom: 0; }
+    .weather-now {
+      display: flex;
+      align-items: baseline;
+      gap: 10px;
+      margin-bottom: 8px;
+      font-size: 13px;
+      color: var(--muted);
+      flex-wrap: wrap;
+    }
+    .weather-now .temp {
+      font-family: var(--font-d);
+      font-size: 25px;
+      font-weight: 700;
+      color: var(--text);
+      line-height: 1;
+    }
+    .weather-now .loc { color: var(--text); font-weight: 500; }
+    .weather-days {
+      display: grid;
+      grid-template-columns: repeat(7, 1fr);
+      gap: 6px;
+    }
+    .wday {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 9px 4px 8px;
+      text-align: center;
+    }
+    .wday .dow { font-size: 10px; letter-spacing: .12em; text-transform: uppercase; color: var(--muted); }
+    .wday .ico { font-size: 17px; margin: 3px 0 2px; line-height: 1.2; }
+    .wday .t { font-size: 12px; color: var(--text); font-weight: 600; }
+    .wday .t span { color: var(--muted); font-weight: 400; }
+    .wday .rain { font-size: 10px; color: var(--atlantic); margin-top: 2px; min-height: 13px; }
+    .weather-note { font-size: 12px; color: var(--muted); font-style: italic; }
+
+    /* ── map ─────────────────────────────────────────────── */
+    .map-wrap {
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      overflow: hidden;
+      margin-bottom: 14px;
+    }
+    #map { height: 520px; background: var(--surface); }
+    .map-legend { display: flex; flex-wrap: wrap; gap: 7px; margin-bottom: 24px; }
+    .legend-item {
+      display: inline-flex;
+      align-items: center;
+      gap: 7px;
+      font-size: 12px;
+      color: var(--muted);
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 20px;
+      padding: 4px 12px;
+    }
+    .legend-dot { width: 9px; height: 9px; border-radius: 50%; flex-shrink: 0; }
+    .leaflet-popup-content-wrapper, .leaflet-popup-tip {
+      background: var(--surface-alt);
+      color: var(--text);
+      box-shadow: 0 8px 28px rgba(0,0,0,.55);
+    }
+    .leaflet-popup-content { font-family: var(--font-b); font-size: 13px; line-height: 1.5; }
+    .leaflet-popup-content a { color: var(--atlantic); font-weight: 600; text-decoration: none; }
+    .leaflet-container a.leaflet-popup-close-button { color: var(--muted); }
+    .leaflet-bar a { background: var(--surface-alt); color: var(--text); border-color: var(--border); }
+
+    /* ── checklists ──────────────────────────────────────── */
+    .check-head {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      margin-bottom: 24px;
+    }
+    .progress-wrap { flex: 1; }
+    .progress-label { font-size: 12px; color: var(--muted); margin-bottom: 6px; }
+    .progress-label strong { color: var(--ember); }
+    .progress-track {
+      height: 6px;
+      background: var(--surface-alt);
+      border-radius: 4px;
+      overflow: hidden;
+    }
+    .progress-fill {
+      height: 100%;
+      width: 0;
+      background: linear-gradient(90deg, var(--ember), var(--atlantic));
+      transition: width .4s ease;
+    }
+    .reset-btn {
+      font-family: var(--font-b);
+      font-size: 11px;
+      letter-spacing: .06em;
+      color: var(--muted);
+      background: none;
+      border: 1px solid var(--border);
+      border-radius: 20px;
+      padding: 5px 14px;
+      cursor: pointer;
+      transition: color .15s, border-color .15s;
+      flex-shrink: 0;
+    }
+    .reset-btn:hover { color: var(--text); border-color: var(--muted); }
+    .check-list { display: flex; flex-direction: column; gap: 6px; margin-bottom: 30px; }
+    .check-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 12px;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 11px 14px;
+      cursor: pointer;
+      user-select: none;
+      transition: background .15s;
+    }
+    .check-item:hover { background: var(--surface-alt); }
+    .check-box {
+      flex-shrink: 0;
+      width: 18px; height: 18px;
+      border: 1.5px solid var(--muted);
+      border-radius: 5px;
+      margin-top: 1px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 11px;
+      color: #09090d;
+      transition: background .15s, border-color .15s;
+    }
+    .check-item.done .check-box { background: var(--ember); border-color: var(--ember); }
+    .check-label { font-size: 13.5px; color: var(--text); line-height: 1.5; }
+    .check-item.done .check-label { color: var(--muted); text-decoration: line-through; }
+    .check-note { font-size: 11.5px; color: var(--muted); margin-top: 2px; }
+    .check-item.done .check-note { text-decoration: line-through; }
+    .check-section-title {
+      font-family: var(--font-d);
+      font-size: 19px;
+      font-weight: 700;
+      color: var(--text);
+      margin-bottom: 14px;
+      padding-bottom: 9px;
+      border-bottom: 1px solid var(--border);
+    }
+
+    /* ── today highlight ─────────────────────────────────── */
+    .day-block.today {
+      border-color: rgba(200,120,69,.5);
+      box-shadow: 0 0 0 1px rgba(200,120,69,.25), 0 10px 34px rgba(200,120,69,.08);
+    }
+    .today-badge {
+      display: inline-block;
+      font-size: 9.5px;
+      letter-spacing: .12em;
+      text-transform: uppercase;
+      background: var(--ember);
+      color: #09090d;
+      font-weight: 700;
+      border-radius: 20px;
+      padding: 2px 9px;
+      margin-left: 8px;
+      vertical-align: 2px;
+    }
+    .item-row.now {
+      box-shadow: inset 3px 0 0 var(--ember);
+      background: linear-gradient(90deg, rgba(200,120,69,.07), transparent 70%);
+      padding-left: 12px;
+      margin-left: -12px;
+    }
+
+    /* ── polish ──────────────────────────────────────────── */
+    .overview-card { transition: transform .2s ease, border-color .2s ease; }
+    .overview-card:hover { transform: translateY(-2px); border-color: rgba(200,120,69,.4); }
+    .day-block { transition: border-color .2s ease, box-shadow .25s ease; }
+    .day-block:hover { border-color: rgba(255,255,255,.12); }
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(8px); }
+      to   { opacity: 1; transform: none; }
+    }
+    .tab-panel.active { animation: fadeUp .3s ease both; }
+    @media (prefers-reduced-motion: reduce) {
+      * { animation: none !important; transition: none !important; }
+    }
+
     /* ── mobile ──────────────────────────────────────────── */
     @media (max-width: 500px) {
       .hero-stats { gap: 22px; }
@@ -465,6 +696,16 @@
       .overview-grid { grid-template-columns: 1fr; }
       .cheat-table th:nth-child(2),
       .cheat-table td:nth-child(2) { display: none; }
+      .weather-days {
+        display: flex;
+        overflow-x: auto;
+        scrollbar-width: none;
+        -webkit-overflow-scrolling: touch;
+      }
+      .weather-days::-webkit-scrollbar { display: none; }
+      .wday { flex: 0 0 72px; }
+      #map { height: 420px; }
+      .check-head { flex-direction: column; align-items: stretch; }
     }
   </style>
 </head>
@@ -476,6 +717,11 @@
     <div class="hero-eyebrow">Roan &middot; Sam &middot; Rouzbeh</div>
     <h1 class="hero-title">Mad<span class="accent">ei</span>ra</h1>
     <p class="hero-subtitle">5 &ndash; 12 augustus 2026 &middot; 7 nachten</p>
+
+    <div class="trip-status">
+      <span class="chip" id="status-chip">⏳ &hellip;</span>
+      <span class="chip live" id="wx-chip" hidden></span>
+    </div>
 
     <div class="hero-stats">
       <div class="stat">
@@ -523,11 +769,13 @@
   <!-- ═══ NAV ═══════════════════════════════════════════════ -->
   <nav class="nav-wrap">
     <div class="nav">
-      <button class="nav-tab active"  onclick="switchTab('funchal', this)">🌺 Funchal</button>
-      <button class="nav-tab"         onclick="switchTab('west',    this)">🏄 West</button>
-      <button class="nav-tab"         onclick="switchTab('noord',   this)">🌿 Noord</button>
-      <button class="nav-tab"         onclick="switchTab('oost',    this)">🌋 Oost</button>
-      <button class="nav-tab"         onclick="switchTab('cheat',   this)">🗣️ Cheat-sheet</button>
+      <button class="nav-tab active" data-tab="funchal" onclick="switchTab('funchal', this)">🌺 Funchal</button>
+      <button class="nav-tab"        data-tab="west"    onclick="switchTab('west',    this)">🏄 West</button>
+      <button class="nav-tab"        data-tab="noord"   onclick="switchTab('noord',   this)">🌿 Noord</button>
+      <button class="nav-tab"        data-tab="oost"    onclick="switchTab('oost',    this)">🌋 Oost</button>
+      <button class="nav-tab"        data-tab="kaart"   onclick="switchTab('kaart',   this)">📍 Kaart</button>
+      <button class="nav-tab"        data-tab="check"   onclick="switchTab('check',   this)">✅ Checklists</button>
+      <button class="nav-tab"        data-tab="cheat"   onclick="switchTab('cheat',   this)">🗣️ Cheat-sheet</button>
     </div>
   </nav>
 
@@ -540,6 +788,8 @@
         <h2 class="section-title">🌺 Funchal</h2>
         <span class="section-sub">Dag 1 &middot; 2 &middot; 7 &middot; 8</span>
       </div>
+
+      <div class="weather-strip" id="wx-funchal"><span class="weather-note">Weer laden&hellip;</span></div>
 
       <div class="tips-box">
         <div class="tips-box-title">⚡ Tips Funchal</div>
@@ -836,6 +1086,8 @@
         <span class="section-sub">Dag 3</span>
       </div>
 
+      <div class="weather-strip" id="wx-west"><span class="weather-note">Weer laden&hellip;</span></div>
+
       <div class="tips-box">
         <div class="tips-box-title">⚡ Tips West-Madeira</div>
         <ul>
@@ -924,6 +1176,8 @@
         <h2 class="section-title">🌿 Noord</h2>
         <span class="section-sub">Dag 4 &amp; 6</span>
       </div>
+
+      <div class="weather-strip" id="wx-noord"><span class="weather-note">Weer laden&hellip;</span></div>
 
       <div class="tips-box">
         <div class="tips-box-title">⚡ Tips Noord-Madeira</div>
@@ -1079,6 +1333,8 @@
         <span class="section-sub">Dag 5</span>
       </div>
 
+      <div class="weather-strip" id="wx-oost"><span class="weather-note">Weer laden&hellip;</span></div>
+
       <div class="tips-box">
         <div class="tips-box-title">⚡ Tips Oost-Madeira</div>
         <ul>
@@ -1153,6 +1409,44 @@
           </div>
         </div>
       </div>
+    </div>
+
+    <!-- ─── TAB: KAART ──────────────────────────────────────── -->
+    <div id="tab-kaart" class="tab-panel">
+      <div class="section-header">
+        <h2 class="section-title">📍 Kaart</h2>
+        <span class="section-sub">Alle stops &middot; tik een pin voor navigatie</span>
+      </div>
+
+      <div class="map-wrap"><div id="map"></div></div>
+      <div class="map-legend" id="map-legend"></div>
+
+      <div class="alert-box">
+        <div class="alert-title">💡 Offline tip</div>
+        <div class="alert-body">Download v&oacute;&oacute;r vertrek de offline kaart van Madeira in Google Maps &mdash; bergwegen, tunnels en de noordkust hebben slecht bereik. Elke pin hieronder linkt direct naar navigatie.</div>
+      </div>
+    </div>
+
+    <!-- ─── TAB: CHECKLISTS ─────────────────────────────────── -->
+    <div id="tab-check" class="tab-panel">
+      <div class="section-header">
+        <h2 class="section-title">✅ Checklists</h2>
+        <span class="section-sub">Wordt bewaard op je eigen telefoon</span>
+      </div>
+
+      <div class="check-head">
+        <div class="progress-wrap">
+          <div class="progress-label" id="check-count">0 van 0 afgevinkt</div>
+          <div class="progress-track"><div class="progress-fill" id="check-progress"></div></div>
+        </div>
+        <button class="reset-btn" onclick="resetChecklist()">Reset alles</button>
+      </div>
+
+      <div class="check-section-title">📋 Voor vertrek</div>
+      <div class="check-list" id="list-todo"></div>
+
+      <div class="check-section-title">🎒 Inpaklijst</div>
+      <div class="check-list" id="list-pack"></div>
     </div>
 
     <!-- ─── TAB: CHEAT-SHEET ─────────────────────────────────── -->
@@ -1293,6 +1587,7 @@
   </div><!-- /content -->
 
   <script>
+    /* ── tabs & accordion ─────────────────────────────────── */
     function switchTab(tab, el) {
       document.querySelectorAll('.tab-panel').forEach(p => p.classList.remove('active'));
       document.querySelectorAll('.nav-tab').forEach(t => t.classList.remove('active'));
@@ -1300,10 +1595,271 @@
       el.classList.add('active');
       el.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'center' });
       window.scrollTo({ top: 0, behavior: 'smooth' });
+      if (tab === 'kaart') initMap();
     }
-
+    function selectTab(tab) {
+      const btn = document.querySelector('.nav-tab[data-tab="' + tab + '"]');
+      if (btn) switchTab(tab, btn);
+    }
     function toggleDay(id) {
       document.getElementById(id).classList.toggle('open');
+    }
+
+    /* ── trip status: countdown & vandaag-modus ───────────── */
+    const TRIP_START = new Date(2026, 7, 5);   // 5 aug 2026
+    const DAY_TAB = { 1:'funchal', 2:'funchal', 3:'west', 4:'noord', 5:'oost', 6:'noord', 7:'funchal', 8:'funchal' };
+    let autoNavDone = false;
+
+    function tripDayIndex(now) {
+      const d0 = new Date(now.getFullYear(), now.getMonth(), now.getDate());
+      return Math.floor((d0 - TRIP_START) / 864e5) + 1;
+    }
+
+    function updateStatus() {
+      const chip = document.getElementById('status-chip');
+      const now = new Date();
+      const idx = tripDayIndex(now);
+      if (idx < 1) {
+        const n = Math.ceil((TRIP_START - now) / 864e5);
+        chip.innerHTML = '⏳ Nog <strong>' + n + '</strong> ' + (n === 1 ? 'dag' : 'dagen') + ' tot Madeira';
+      } else if (idx <= 8) {
+        chip.innerHTML = '🏝️ <strong>Dag ' + idx + '</strong> van 8 &middot; vandaag';
+        highlightToday(idx);
+      } else {
+        chip.innerHTML = '🏝️ Madeira 2026 &middot; <strong>saudades</strong>';
+      }
+    }
+
+    function highlightToday(idx) {
+      const block = document.getElementById('dag' + idx);
+      if (!block) return;
+      block.classList.add('open', 'today');
+      const title = block.querySelector('.day-title');
+      if (title && !title.querySelector('.today-badge')) {
+        title.insertAdjacentHTML('beforeend', '<span class="today-badge">Vandaag</span>');
+      }
+      if (!autoNavDone) {
+        autoNavDone = true;
+        selectTab(DAY_TAB[idx] || 'funchal');
+      }
+      // markeer het huidige programmapunt
+      const now = new Date();
+      const cur = now.getHours() * 60 + now.getMinutes();
+      let active = null;
+      block.querySelectorAll('.item-row').forEach(row => {
+        row.classList.remove('now');
+        const t = row.querySelector('.item-time');
+        if (!t) return;
+        const m = t.textContent.trim().match(/^(\d{1,2}):(\d{2})$/);
+        if (m && (+m[1] * 60 + +m[2]) <= cur) active = row;
+      });
+      if (active) active.classList.add('now');
+    }
+
+    /* ── live weer (Open-Meteo, geen key) ─────────────────── */
+    const WX_LOCS = [
+      { name: 'Funchal',                 lat: 32.65, lon: -16.91, elev: 10,   el: 'wx-funchal' },
+      { name: 'Calheta / Paul do Mar',   lat: 32.72, lon: -17.18, elev: 10,   el: 'wx-west'    },
+      { name: 'Porto Moniz',             lat: 32.87, lon: -17.17, elev: 5,    el: 'wx-noord'   },
+      { name: 'Pico do Arieíro (1818m)', lat: 32.74, lon: -16.93, elev: 1818, el: 'wx-noord' },
+      { name: 'Machico / São Lourenço', lat: 32.72, lon: -16.77, elev: 10, el: 'wx-oost' }
+    ];
+    const WX_ICON = { 0:'☀️',1:'🌤️',2:'⛅',3:'☁️',45:'🌫️',48:'🌫️',51:'🌦️',53:'🌦️',55:'🌧️',56:'🌧️',57:'🌧️',61:'🌦️',63:'🌧️',65:'🌧️',66:'🌧️',67:'🌧️',71:'🌨️',73:'🌨️',75:'🌨️',77:'🌨️',80:'🌦️',81:'🌧️',82:'⛈️',85:'🌨️',86:'🌨️',95:'⛈️',96:'⛈️',99:'⛈️' };
+    const DOW_NL = ['zo','ma','di','wo','do','vr','za'];
+    const wxIcon = c => WX_ICON[c] || '🌤️';
+
+    async function loadWeather() {
+      const lat  = WX_LOCS.map(l => l.lat).join(',');
+      const lon  = WX_LOCS.map(l => l.lon).join(',');
+      const elev = WX_LOCS.map(l => l.elev).join(',');
+      const url = 'https://api.open-meteo.com/v1/forecast'
+        + '?latitude=' + lat + '&longitude=' + lon + '&elevation=' + elev
+        + '&current=temperature_2m,weather_code,wind_speed_10m'
+        + '&daily=weather_code,temperature_2m_max,temperature_2m_min,precipitation_probability_max'
+        + '&timezone=Atlantic%2FMadeira&forecast_days=7';
+      try {
+        const res = await fetch(url);
+        if (!res.ok) throw new Error(res.status);
+        const json = await res.json();
+        const data = Array.isArray(json) ? json : [json];
+        // wis 'laden…' placeholders
+        WX_LOCS.forEach(l => { const c = document.getElementById(l.el); if (c) c.innerHTML = ''; });
+        WX_LOCS.forEach((loc, i) => {
+          const d = data[i] || data[0];
+          if (!d || !d.daily) return;
+          renderWeather(loc, d);
+          if (i === 0 && d.current) {
+            const chip = document.getElementById('wx-chip');
+            chip.innerHTML = 'Funchal nu <strong>' + Math.round(d.current.temperature_2m) + '&deg;</strong> ' + wxIcon(d.current.weather_code);
+            chip.hidden = false;
+          }
+        });
+      } catch (e) {
+        WX_LOCS.forEach(l => {
+          const c = document.getElementById(l.el);
+          if (c) c.innerHTML = '<span class="weather-note">Weer niet beschikbaar &mdash; check je verbinding.</span>';
+        });
+      }
+    }
+
+    function renderWeather(loc, d) {
+      const c = document.getElementById(loc.el);
+      if (!c) return;
+      let now = '';
+      if (d.current) {
+        now = '<div class="weather-now">'
+          + '<span class="temp">' + Math.round(d.current.temperature_2m) + '&deg;</span>'
+          + '<span>' + wxIcon(d.current.weather_code) + ' <span class="loc">' + loc.name + '</span> &middot; nu</span>'
+          + '<span>💨 ' + Math.round(d.current.wind_speed_10m) + ' km/u</span>'
+          + '</div>';
+      }
+      let days = '<div class="weather-days">';
+      const dl = d.daily;
+      for (let i = 0; i < dl.time.length; i++) {
+        const dt = new Date(dl.time[i] + 'T12:00:00');
+        const rain = dl.precipitation_probability_max ? dl.precipitation_probability_max[i] : null;
+        days += '<div class="wday">'
+          + '<div class="dow">' + DOW_NL[dt.getDay()] + ' ' + dt.getDate() + '</div>'
+          + '<div class="ico">' + wxIcon(dl.weather_code[i]) + '</div>'
+          + '<div class="t">' + Math.round(dl.temperature_2m_max[i]) + '&deg; <span>' + Math.round(dl.temperature_2m_min[i]) + '&deg;</span></div>'
+          + '<div class="rain">' + (rain != null && rain >= 20 ? '💧' + rain + '%' : '') + '</div>'
+          + '</div>';
+      }
+      days += '</div>';
+      c.insertAdjacentHTML('beforeend', '<div class="weather-block">' + now + days + '</div>');
+    }
+
+    /* ── kaart (Leaflet) ──────────────────────────────────── */
+    const DAY_COLORS = { 1:'#c87845', 2:'#e0a060', 3:'#4a9fc4', 4:'#6fbf8f', 5:'#d65c5c', 6:'#b58de0', 8:'#8a8a96' };
+    const DAY_LABELS = { 1:'Aankomst', 2:'Funchal & zuidkust', 3:'West', 4:'Noordkust', 5:'Oost', 6:'Pico hike', 8:'Vertrek' };
+    const POIS = [
+      { d:1, n:'Louros House (verblijf)',          lat:32.6486, lng:-16.9046 },
+      { d:1, n:'Zona Velha &middot; Rua de Santa Maria', lat:32.6478, lng:-16.9015 },
+      { d:2, n:'Mercado dos Lavradores',           lat:32.6479, lng:-16.9029 },
+      { d:2, n:'Monte Palace Tropical Garden',     lat:32.6722, lng:-16.9003 },
+      { d:2, n:'C&acirc;mara de Lobos &middot; A Seta', lat:32.6500, lng:-16.9767 },
+      { d:2, n:'Cabo Gir&atilde;o Skywalk',        lat:32.6558, lng:-17.0053 },
+      { d:2, n:'Praia Formosa',                    lat:32.6373, lng:-16.9514 },
+      { d:3, n:'Paul do Mar (surf)',               lat:32.7517, lng:-17.2294 },
+      { d:3, n:'Calheta strand',                   lat:32.7186, lng:-17.1717 },
+      { d:3, n:'Ponta do Pargo vuurtoren',         lat:32.8117, lng:-17.2611 },
+      { d:4, n:'Porto Moniz lavapools',            lat:32.8668, lng:-17.1665 },
+      { d:4, n:'S&atilde;o Vicente',               lat:32.7944, lng:-17.0439 },
+      { d:4, n:'Santana palheiros',                lat:32.8050, lng:-16.8819 },
+      { d:4, n:'Victor&rsquo;s Bar &middot; Ribeiro Frio', lat:32.7353, lng:-16.8870 },
+      { d:5, n:'Ponta de S&atilde;o Louren&ccedil;o trailhead', lat:32.7440, lng:-16.7064 },
+      { d:5, n:'Cani&ccedil;al (lunch)',           lat:32.7383, lng:-16.7375 },
+      { d:5, n:'Machico strand',                   lat:32.7167, lng:-16.7667 },
+      { d:6, n:'Pico do Arie&iacute;ro (start hike)', lat:32.7357, lng:-16.9289 },
+      { d:6, n:'Pico Ruivo (1862m)',               lat:32.7592, lng:-16.9418 },
+      { d:6, n:'Eira do Serrado uitkijkpunt',      lat:32.7081, lng:-16.9722 },
+      { d:8, n:'Aeroporto FNC &middot; auto inleveren 08:00', lat:32.6979, lng:-16.7745 }
+    ];
+    let mapReady = false;
+    function initMap() {
+      if (mapReady || typeof L === 'undefined') return;
+      mapReady = true;
+      const map = L.map('map', { scrollWheelZoom: false });
+      L.tileLayer('https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png', {
+        attribution: '&copy; OpenStreetMap &copy; CARTO',
+        maxZoom: 18
+      }).addTo(map);
+      const bounds = [];
+      POIS.forEach(p => {
+        const col = DAY_COLORS[p.d] || '#c87845';
+        L.circleMarker([p.lat, p.lng], {
+          radius: 8, color: '#09090d', weight: 2, fillColor: col, fillOpacity: .95
+        }).addTo(map).bindPopup(
+          '<strong>' + p.n + '</strong><br>Dag ' + p.d + ' &middot; ' + (DAY_LABELS[p.d] || '') + '<br>'
+          + '<a target="_blank" rel="noopener" href="https://www.google.com/maps/dir/?api=1&destination=' + p.lat + ',' + p.lng + '">Navigeer &#9656;</a>'
+        );
+        bounds.push([p.lat, p.lng]);
+      });
+      map.fitBounds(bounds, { padding: [28, 28] });
+      const legend = document.getElementById('map-legend');
+      legend.innerHTML = Object.keys(DAY_COLORS).map(d =>
+        '<span class="legend-item"><span class="legend-dot" style="background:' + DAY_COLORS[d] + '"></span>Dag ' + d + ' &middot; ' + DAY_LABELS[d] + '</span>'
+      ).join('');
+    }
+
+    /* ── checklists (localStorage) ────────────────────────── */
+    const LS_KEY = 'madeira2026-check';
+    const TODO = [
+      { k:'res-armazem',  t:'Armaz&eacute;m do Sal reserveren',        n:'Dag 2 &eacute;n afscheidsdiner dag 7 &mdash; minimaal 2 dagen vooraf' },
+      { k:'res-surf',     t:'Surfles boeken Paul do Mar',              n:'Madeira Surf Center of Flower Power &mdash; &euro;35&ndash;45 pp, check NW-swell forecast' },
+      { k:'checkin-tui',  t:'Online check-in TUI',                     n:'Heen- &eacute;n terugvlucht &mdash; opent 24u voor vertrek' },
+      { k:'voucher-auto', t:'Beyond Madeira voucher downloaden',       n:'Boekingsbevestiging offline opslaan op telefoon' },
+      { k:'cc-borg',      t:'Creditcardlimiet checken voor borg',      n:'Huurauto-borg gaat op de creditcard van de hoofdbestuurder' },
+      { k:'esim',         t:'Roaming / eSIM regelen',                  n:'Madeira = Portugal = EU-roaming, check je bundel' },
+      { k:'offline-maps', t:'Google Maps offline kaart downloaden',    n:'Heel Madeira &mdash; tunnels en bergwegen hebben geen bereik' },
+      { k:'docs-cloud',   t:'Kopie paspoorten in de cloud',            n:'Alle drie &mdash; plus rijbewijs hoofdbestuurder' },
+      { k:'cash',         t:'Contant geld pinnen',                     n:'Toboggan (~&euro;30) en poncha bars zijn cash-only territorium' },
+      { k:'shuttle',      t:'Shuttletijden Pico Ruivo checken',        n:'Bij aankomst vragen &mdash; bepaalt of je dag 6 enkele reis hikt' }
+    ];
+    const PACK = [
+      { k:'p-schoenen',  t:'Wandelschoenen met grip',        n:'Pico-trail = rotsen, trappen, gravel op 1800m' },
+      { k:'p-water',     t:'2L waterfles of bladder pp',     n:'Verplicht voor Pico &eacute;n S&atilde;o Louren&ccedil;o' },
+      { k:'p-spf',       t:'SPF50+ zonnebrandcr&egrave;me',  n:'Geen schaduw op de hikes' },
+      { k:'p-pet',       t:'Zonnebril + pet',                n:'' },
+      { k:'p-regenjas',  t:'Lichte regen-/windjas',          n:'Noordkust en bergen maken hun eigen weer' },
+      { k:'p-zwem',      t:'Zwemkleding + sneldrogende handdoek', n:'' },
+      { k:'p-waterschoen', t:'Waterschoenen',                n:'Lavapools Porto Moniz = scherpe rotsen' },
+      { k:'p-powerbank', t:'Powerbank',                      n:'Navigatie + foto&rsquo;s slurpen batterij' },
+      { k:'p-rijbewijs', t:'Rijbewijs + creditcard',         n:'Hoofdbestuurder &mdash; zonder creditcard geen auto' },
+      { k:'p-zorgpas',   t:'EHIC / zorgpas',                 n:'Europese zorgverzekeringskaart, gratis via je verzekeraar' },
+      { k:'p-id',        t:'Paspoort of ID-kaart',           n:'' },
+      { k:'p-rugzak',    t:'Dagrugzak',                      n:'' },
+      { k:'p-repen',     t:'Energierepen + blarenpleisters', n:'Voor de hikedagen' },
+      { k:'p-wagenziek', t:'Reisziektetabletten',            n:'De noordkustweg is een bochtenfestival' }
+    ];
+
+    function getChecks() {
+      try { return JSON.parse(localStorage.getItem(LS_KEY)) || {}; } catch (e) { return {}; }
+    }
+    function renderChecklists() {
+      const state = getChecks();
+      const render = (items, elId) => {
+        document.getElementById(elId).innerHTML = items.map(it =>
+          '<div class="check-item' + (state[it.k] ? ' done' : '') + '" onclick="toggleCheck(\'' + it.k + '\', this)">'
+          + '<div class="check-box">' + (state[it.k] ? '✓' : '') + '</div>'
+          + '<div><div class="check-label">' + it.t + '</div>'
+          + (it.n ? '<div class="check-note">' + it.n + '</div>' : '')
+          + '</div></div>'
+        ).join('');
+      };
+      render(TODO, 'list-todo');
+      render(PACK, 'list-pack');
+      updateProgress();
+    }
+    function toggleCheck(key, el) {
+      const state = getChecks();
+      state[key] = !state[key];
+      if (!state[key]) delete state[key];
+      try { localStorage.setItem(LS_KEY, JSON.stringify(state)); } catch (e) {}
+      el.classList.toggle('done');
+      el.querySelector('.check-box').textContent = el.classList.contains('done') ? '✓' : '';
+      updateProgress();
+    }
+    function updateProgress() {
+      const state = getChecks();
+      const total = TODO.length + PACK.length;
+      const done = Object.keys(state).filter(k => state[k]).length;
+      document.getElementById('check-count').innerHTML = '<strong>' + done + '</strong> van ' + total + ' afgevinkt';
+      document.getElementById('check-progress').style.width = (total ? (done / total * 100) : 0) + '%';
+    }
+    function resetChecklist() {
+      if (!confirm('Alle vinkjes wissen?')) return;
+      try { localStorage.removeItem(LS_KEY); } catch (e) {}
+      renderChecklists();
+    }
+
+    /* ── init ─────────────────────────────────────────────── */
+    updateStatus();
+    setInterval(updateStatus, 60000);
+    loadWeather();
+    renderChecklists();
+    if ('serviceWorker' in navigator) {
+      window.addEventListener('load', () => navigator.serviceWorker.register('/sw.js').catch(() => {}));
     }
   </script>
 </body>

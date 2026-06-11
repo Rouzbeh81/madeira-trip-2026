@@ -1,11 +1,11 @@
 {
-  "name": "Japan Trip 2026",
-  "short_name": "Japan 2026",
-  "description": "Rana · Lalla · Jhilani · Rouzbeh — 30 april tot 13 mei",
+  "name": "Madeira 2026",
+  "short_name": "Madeira",
+  "description": "Roan · Sam · Rouzbeh — 5 tot 12 augustus 2026",
   "start_url": "/",
   "display": "standalone",
-  "background_color": "#0f0c0a",
-  "theme_color": "#0f0c0a",
+  "background_color": "#09090d",
+  "theme_color": "#09090d",
   "orientation": "portrait-primary",
   "icons": [
     {
